@@ -1,0 +1,24 @@
+ADDI IC, R0, 67109120 \\ Encrypted image counter
+ADDI IP, IC, 307200 \\ Encrypted image pointer
+ADDI R1, R0, 266361855 \\ VRAM pointer
+ADDI R2, R0, 480 \\ Image Width
+ADDI R3, R0, 0 \\ Current X pixel
+ADDI R4, R0, 1440 \\ Monitor Width - Image Width
+
+%COPY:
+VLDW V1, IC
+VSTW V1, R0
+ADDI IC, IC, 256
+ADDI R0, R0, 256
+ADDI R3, R3, 8
+BE R2, R3, NEXTLINE
+JMP COPY
+
+%NEXTLINE:
+BE IC, IP, DECRYPT
+ADDI R3, R0, 0
+ADD R1, R1, R4
+JMP COPY
+
+%DECRYPT:
+ADDI IC, R0, 67109120 \\ Reset image counter
