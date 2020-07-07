@@ -2,6 +2,10 @@ import numpy
 import cv2
 import math
 
+d = 1441
+n = 3763
+k = 23
+m = math.floor(2 ** k / n)
 
 def main():
     with open("data.txt", "r") as input:
@@ -28,9 +32,6 @@ def main():
         encrypted2byte.append(pixel)
 
     # Esto tiene que hacerlo el hardware
-    d = 1441
-    n = 3763
-
     decrypted = []
     for pixel in encrypted2byte:
         decrypted.append(modular_pow(pixel, d, n))
@@ -59,13 +60,9 @@ def modular_pow(c, d, n):
 
 
 def vector_modulo(a, n):
-    # Solo se debe hacer una vez para cada n, es decir una vez
-    k = math.log(n, 2)
-    m = 2 ** k // n
-
     # Parte vectorizable
     q = a * m  # Vector multiplication
-    q = q // 2 ** k  # Vector shift right
+    q = q // (2 ** k)  # Vector shift right
     b = q * n  # Vector multiplication
     a = a - b  # Vector subtraction
     if n <= a:  # Vector subtraction with flags
