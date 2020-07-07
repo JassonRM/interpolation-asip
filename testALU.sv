@@ -63,7 +63,7 @@ escalar_ALU DUT (Cin, ALUop, OpA, OpB, Cout, Result, Zero, Carry, OverFlow, Nega
 		ALUop = 3'b101;
 		#10;
 		
-		//Or
+		//Logical Shift Right
 		
 		OpA = 10;
 		OpB = 1;
