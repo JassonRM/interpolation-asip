@@ -5,16 +5,16 @@ module escalar_ALU (input logic Cin,
 						  output logic [31:0] Result,
 						  output logic Zero, Carry, OverFlow, Negative, eq, bgt);
 						  
-						  logic [31:0]  resultAdd, resultSub, resultMul, resultSleft, resultAnd, resultOr; 
+						  logic [31:0]  resultAdd, resultSub, resultMul, resultSleft, resultAnd, resultSright; 
 						  
 						  add 	Add 		(OpA, OpB, Cin, Cout, resultAdd);
 						  sub 	Sub 		(OpA, OpB, resultSub);
 						  mul 	Mul 		(OpA, OpB, resultMul);
 						  sLeft 	SLeft 	(OpA, OpB, resultSleft);
 						  and_ 	And_		(OpA, OpB, resultAnd);
-						  or_ 	Or_		(OpA, OpB, resultOr);
+						  sRight SRight		(OpA, OpB, resultSright);
 						  
-						  mux_ALU main_mux (ALUop, resultAdd, resultSub, resultMul, resultSleft, resultAnd, resultOr, Result);
+						  mux_ALU main_mux (ALUop, resultAdd, resultSub, resultMul, resultSleft, resultAnd, resultSright, Result);
 						  
 						  assign Carry =  Cout & ~ALUop[1];
 						  assign OverFlow = ~ALUop[1] & (resultAdd[31] ^ OpA[31]) & (OpA[31] ^ OpB[31] ^ ALUop[0]);
