@@ -10,12 +10,13 @@ module Control_Unit (input logic [4:0] OPcode,
 							output logic SelectorRs2,
 							output logic [1:0] BranchSel,
 							output logic [1:0]SelectorOpA,
-							output logic SelWriteData);
+							output logic SelWriteData,
+							output logic WriteRegisterVec);
 							
 							logic [18:0]out_put;
 							
-							//       1      2              3         4         5      6      7            8            9         10                       -> Data order.                                   
-							assign {JMPSel, WriteRegister, MemWrite, RegWrite, vcsub, ALUOp, SelectorOpB, SelectorRs2, BranchSel,SelectorOpA,SelWriteData} = out_put;
+							//       1      2              3         4         5      6      7            8            9         10           11          12  -> Data order.                                   
+							assign {JMPSel, WriteRegister, MemWrite, RegWrite, vcsub, ALUOp, SelectorOpB, SelectorRs2, BranchSel,SelectorOpA,SelWriteData,WriteRegisterVec} = out_put;
 							
 							always @(*) begin
 								case ({OPcode,ALUop})       //  1 234 5 6  7 89 1011  -> Those numbers match with the Data order specified before.
@@ -39,6 +40,11 @@ module Control_Unit (input logic [4:0] OPcode,
 									8'b10001000 : out_put <= 19'b00xxxxxxxxxxxx00xxx; // Control signals for CALL (Check it after).
 									8'b01010000 : out_put <= 19'b01xxxxxx0010001000x; // Control signals for BE.
 									8'b01011000 : out_put <= 19'b10xxxxxx0010001000x; // Control signals for BGT.
+									
+									8'b11000010 : out_put <= 19'b0000xx00010xxx00xx1; // Control signals for VMUL.
+									8'b11000111 : out_put <= 19'b0000xx00111xxx00xx1; // Control signals for VSR.
+									8'b11000101 : out_put <= 19'b0000xx00101xxx00xx1; // Control signals for VSUB.
+									
 									default		: out_put <= 19'bxxxxxxxxxxxxxxxxxxx;
 								endcase
 							end
