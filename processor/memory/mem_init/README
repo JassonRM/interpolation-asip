@@ -1,0 +1,11 @@
+
+To compile use make command.
+To execute use: ./memgen
+The sprite mif file will be created in the same directory of executable file.
+
+To simulate rom IP in ModelSim use:
+    vsim -L altera_mf_ver -L lpm_ver  work.ram_test , where mem_tb is the name for the testbench file
+
+
+
+**REMEMBER TO MODIFY THE SPRITE FILE**
