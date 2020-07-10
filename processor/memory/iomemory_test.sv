@@ -2,17 +2,17 @@
 
 module iomemory_test();
 
-logic clk, write_enable, gpu_clk, gpu_sel;
+logic clk, write_enable, gpu_clk;
 logic[31:0] address, data_input, gpu_address;
 logic[63:0] vector_input;
-logic[7:0] gpu_out;
+logic[7:0] encrypted_gpu, decrypted_gpu;
 logic[31:0] data_output;
 logic[127:0] vector_output;
 
-	iomemory DUT(clk, write_enable, gpu_clk, gpu_sel, address, data_input, gpu_address, vector_input, gpu_out, data_output, vector_output);
+	iomemory DUT(clk, write_enable, gpu_clk, address, data_input, gpu_address, vector_input, encrypted_gpu, decrypted_gpu, data_output, vector_output);
 
 	initial begin
-		clk = 0; write_enable = 0; gpu_clk = 0; gpu_sel = 0; address = 'h0; data_input = 'hA; gpu_address = 0; vector_input = 'h0;
+		clk = 0; write_enable = 0; gpu_clk = 0; address = 'h0; data_input = 'hA; gpu_address = 0; vector_input = 'h0;
 
 		#10 address = 32'h100;
 		#10 write_enable = 1;
