@@ -12,7 +12,6 @@ module Decode_Reg (input logic clk, rst, WriteRegister,
 						 input logic [31:0] Rs1, Rs2,
 						 input logic [4:0] InstrRs1, InstrRs2, 
 						 input logic [255:0] VRs1,Vrs2,
-						 input logic [31:0] ExtendedRs1,ExtendedRs2,
 						 input logic [4:0] rd,
 						
 						 output logic WIRTEREGISTER,
@@ -29,7 +28,6 @@ module Decode_Reg (input logic clk, rst, WriteRegister,
 						 output logic [31:0] RS1, RS2,
 						 output logic [4:0] INSTRRS1, INSTRRS2,
 						 output logic [255:0] VRS1, VRS2,
-						 output logic [31:0] EXTENDERRS1, EXTENDERRS2,
 						 output logic [4:0] RD);
 						 
 						 always_ff @(posedge clk) 
@@ -51,8 +49,6 @@ module Decode_Reg (input logic clk, rst, WriteRegister,
 								INSTRRS2				<= 5'b0;
 								VRS1					<= 256'b0;
 								VRS2					<= 256'b0;
-								EXTENDERRS1			<= 32'b0;
-								EXTENDERRS2			<= 32'b0;
 								RD						<= 5'b0;
 							
 							end else begin
@@ -71,11 +67,9 @@ module Decode_Reg (input logic clk, rst, WriteRegister,
 								RS1					<= Rs1;
 								RS2					<= RS2;
 								INSTRRS1				<= InstrRs1;
-								INSTRRS2				<= INSTRRS2;
+								INSTRRS2				<= InstrRs2;
 								VRS1					<= VRs1;
 								VRS2					<= VRS2;
-								EXTENDERRS1			<= ExtendedRs1;
-								EXTENDERRS2			<= ExtendedRs2;
 								RD						<= rd;
 							
 							end
