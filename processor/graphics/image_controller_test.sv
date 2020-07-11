@@ -30,8 +30,7 @@ module image_controller_test();
 	logic image_selector;
 	logic[1:0] color_selector;
 	
-	logic[17:0] address1;
-	logic[18:0] address2;
+	logic[18:0] address;
 	
 	image_controller DUT(
 		.clk							(clk),
@@ -41,8 +40,7 @@ module image_controller_test();
 		.visible						(den), 
 		.image_selector			(image_selector),
 		.color_selector			(color_selector),
-		.address1					(address1),
-		.address2					(address2)
+		.address					(address)
 		);
 	
 	
