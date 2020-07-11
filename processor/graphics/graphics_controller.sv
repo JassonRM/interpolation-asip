@@ -39,7 +39,7 @@ module graphics_controller(input logic clk, reset, write_enable, gpu_clk, image_
 		.hsync						(hsync), 
 		.vsync						(vsync), 
 		.visible						(den), 
-		.image_selector			(image_select),
+		.image_selector			(!image_select),
 		.color_selector			(color_selector),
 		.address					   (gpu_address)
 		);
