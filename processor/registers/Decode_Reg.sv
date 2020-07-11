@@ -1,6 +1,7 @@
 module Decode_Reg (input logic clk, rst, WriteRegister,
 						 input logic MemWrite,
-						 input logic [1:0] RegWrite,vcsub,
+						 input logic RegWrite,
+						 input logic [1:0] vcsub,
 						 input logic [2:0] ALUOp,
 						 input logic [1:0] SelectorOpB,
 						 input logic SelectorRs2,
@@ -16,7 +17,8 @@ module Decode_Reg (input logic clk, rst, WriteRegister,
 						
 						 output logic WIRTEREGISTER,
 						 output logic MEMRITE,
-						 output logic [1:0] REGWRITE,VCSUB,
+						 output logic REGWRITE,
+						 output logic [1:0] VCSUB,
 						 output logic [2:0] ALUOP,
 						 output logic [1:0] SELECTOROPB,
 						 output logic SELECTORRS2,
@@ -34,7 +36,7 @@ module Decode_Reg (input logic clk, rst, WriteRegister,
 							if (rst) begin
 								WIRTEREGISTER 		<= 1'b0;
 						      MEMRITE 				<= 1'b0;			
-								REGWRITE				<= 2'b0;
+								REGWRITE				<= 1'b0;
 								VCSUB					<= 2'b0;
 								ALUOP					<= 3'b0;
 								SELECTOROPB			<= 2'b0;
