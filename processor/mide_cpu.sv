@@ -1,12 +1,12 @@
-module mide_cpu(input logic clk, rst, init_button, image_select,
-					output logic vsync, hsync,
-					output logic[24:0] RGB);
+module mide_cpu(input logic clk, gpu_clk, rst, start_button, image_select,
+					output logic hsync, vsync,
+					output logic[23:0] rgb_out);
 
+					
+					
 PC_deco PCdeco(BranchSel_EX, Zero, Carry, OverFlow, Negative, eq, bgt, JMPSel, NextInstrSel);
 
 instr_fetch IF (clk, rst, stall, NextInstrSel, address_ID, Rs, Branch, PC);
-
-// PC es el address que va a la memoria y genera instruction_IF
 
 logic [31:0] instruction_ID; 
 
@@ -16,6 +16,8 @@ logic [4:0] Rd_ID, Rs1_ID, Rs2_ID;
 assign Rd_ID = instruction_ID[26:22];
 assign Rs1_ID = instruction_ID[21:17];
 assign Rs2_ID = instruction_ID[16:12];
+
+logic [255:0] data_WB;
 
 instr_decode ID (clk, rst, WriteRegister_WB, WriteRegisterVec_WB, Rd_WB, data_WB, instruction_ID, JMPSel, WriteRegister_ID, MemWrite_ID, RegWrite_ID, VCSub_ID, ALUop_ID, SelectorOpB_ID, BranchSel_ID, SelectorOpA_ID, SelWriteData_ID, WriteRegisterVec_ID, OpA_ID, OpB_ID, Imm_ID, OpAV_ID, OpBV_ID, address_ID);
 
@@ -37,18 +39,20 @@ syncRegister #(329) EX_MEM_REG(clk, ex_mem_rst, '0, {Rd_EX, WriteRegister_EX, Me
 logic [63:0] vector_input;
 assign vector_input = {VALUresult_MEM[231:224], VALUresult_MEM[199:192], VALUresult_MEM[167:160], VALUresult_MEM[135:128], VALUresult_MEM[103:96], VALUresult_MEM[71:64], VALUresult_MEM[39:32], VALUresult_MEM[7:0]};
 															
-logic [127:0] ReadMem_WB;							
+logic [127:0] ReadMemV_WB;							
 
-syncRegister #(392) MEM_WB_REG(clk, rst, '0, {Rd_MEM, WriteRegister_MEM, RegWrite_MEM, WriteRegisterVec_MEM, ReadMem_MEM, result_MEM}, 
-															{Rd_WB, WriteRegister_WB, RegWrite_WB, WriteRegisterVec_WB, ReadMem_WB, result_WB});
+memory MEM(clk, gpu_clk, !rst, start_button, image_select, MemWrite_MEM, WriteRegisterVec_MEM, ALUresult_MEM, PC, WriteData_MEM, ALUresult_MEM, vector_input, VALUresult_MEM, ReadMem_MEM, instruction_IF, ReadMemV_MEM, hsync, vsync, rgb_out, result_MEM);
+
+syncRegister #(392) MEM_WB_REG(clk, rst, '0, {Rd_MEM, WriteRegister_MEM, RegWrite_MEM, WriteRegisterVec_MEM, ReadMem_MEM, ReadMemV_MEM, result_MEM}, 
+															{Rd_WB, WriteRegister_WB, RegWrite_WB, WriteRegisterVec_WB, ReadMem_WB, ReadMemV_WB, result_WB});
 
 always_comb
 	if(RegWrite_WB)
 		data_WB = result_WB;
 	else if(WriteRegister_WB)
-		data_WB = {223'b0, ReadMem_WB[31:0]};
+		data_WB = {223'b0, ReadMem_WB};
 	else if(WriteRegisterVec_WB)
-		data_WB = {16'b0, ReadMem_WB[127:112], 16'b0, ReadMem_WB[111:96], 16'b0, ReadMem_WB[95:80], 16'b0, ReadMem_WB[79:64], 16'b0, ReadMem_WB[63:48], 16'b0, ReadMem_WB[47:32], 16'b0, ReadMem_WB[31:16], 16'b0, ReadMem_WB[15:0]};
+		data_WB = {16'b0, ReadMemV_WB[127:112], 16'b0, ReadMemV_WB[111:96], 16'b0, ReadMemV_WB[95:80], 16'b0, ReadMemV_WB[79:64], 16'b0, ReadMemV_WB[63:48], 16'b0, ReadMemV_WB[47:32], 16'b0, ReadMemV_WB[31:16], 16'b0, ReadMemV_WB[15:0]};
 	else
 		data_WB = 'b0;
 
@@ -57,6 +61,6 @@ assign write_enable_MEM = WriteRegister_MEM | WriteRegisterVec_MEM;
 assign write_enable_WB = WriteRegister_WB | WriteRegisterVec_WB;
 
 
-forwarding_unit DUT(RegWrite_MEM, write_enable_MEM, write_enable_WB, Rs1_EX, Rs2_EX, Rd_MEM, Rd_WB, result_MEM, result_WB, stall, OpAForward, OpBForward, forwarded, forwardedV);
+forwarding_unit Forwarding_unit(RegWrite_MEM, write_enable_MEM, write_enable_WB, Rs1_EX, Rs2_EX, Rd_MEM, Rd_WB, result_MEM, result_WB, stall, OpAForward, OpBForward, forwarded, forwardedV);
 
 endmodule
