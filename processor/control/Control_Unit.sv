@@ -41,12 +41,12 @@ module Control_Unit (input logic [4:0] OPcode,
 									8'b01010000 : out_put <= 18'b01xxxx0010001000x0; // Control signals for BE.
 									8'b01011000 : out_put <= 18'b10xxxx0010001000x0; // Control signals for BGT.
 									
-									8'b11000010 : out_put <= 18'b000000010xxx00xx10; // Control signals for VMUL.
-									8'b11000111 : out_put <= 18'b000000111xxx00xx10; // Control signals for VSR.
-									8'b11000101 : out_put <= 18'b000000101xxx00xx10; // Control signals for VSUB.
-									8'b11110000	: out_put <= 18'b000001101xxx00xx10; // Control signals for VCSUB.
-									8'b11010000	: out_put <= 18'b000000000xxx00xx10; // Control signals for VLDW.
-									8'b11011000 : out_put <= 18'b000000000xxx00xx10; // Control signals for VLDH.
+									8'b11000010 : out_put <= 18'b000000010xxx00xx11; // Control signals for VMUL.
+									8'b11000111 : out_put <= 18'b000000111xxx00xx11; // Control signals for VSR.
+									8'b11000101 : out_put <= 18'b000000101xxx00xx11; // Control signals for VSUB.
+									8'b11110000	: out_put <= 18'b000001101xxx00xx11; // Control signals for VCSUB.
+									8'b11010000	: out_put <= 18'b000000000xxx00xx11; // Control signals for VLDW.
+									8'b11011000 : out_put <= 18'b000000000xxx00xx11; // Control signals for VLDH.
 									8'b11100000 : out_put <= 18'b0001x0000xxx00xx00; // Control signals for VSTW.
 									8'b11101000 : out_put <= 18'b0001x0000xxx00xx00; // Control signals for VSTB.
 									
