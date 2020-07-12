@@ -8,7 +8,7 @@ module instr_decode(input logic clk, rst, WRITEREGISTER_WB,  // WRITEREGISTER is
 							output logic WriteRegister,
 							output logic MemWrite,
 							output logic RegWrite,
-							output logic [1:0] vcsub,
+							output logic vcsub,
 							output logic [2:0] ALUOp,
 							output logic [1:0] SelectorOpB,
 							output logic [1:0] BranchSel,
