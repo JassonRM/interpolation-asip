@@ -1,15 +1,15 @@
-module execute(input logic VCSub, SelWriteData, Rs1_sel, Rs2_sel,
+module execute(input logic VCSub, SelWriteData, Rs1_sel, Rs2_sel, OpAForward, OpBForward,
 					input logic[1:0] SelectorOpA, SelectorOpB,
 					input logic[2:0] ALUop,
-					input logic[31:0] OpA, OpB, Imm,
-					input logic[255:0] OpAV, OpBV,
+					input logic[31:0] OpA, OpB, Imm, forwarded,
+					input logic[255:0] OpAV, OpBV, forwardedV,
 					output logic Zero, Carry, OverFlow, Negative, eq, bgt,
 					output logic[31:0] ALUresult, WriteData,
 					output logic[255:0] VALUresult);
 
 logic Cout;
-logic[31:0] ALUinputA, ALUinputB;
-logic[255:0] VALUinputA, VALUinputB;
+logic[31:0] RegisterInputA, RegisterInputB, ALUinputA, ALUinputB;
+logic[255:0] RegisterInputAV, RegisterInputBV, VALUinputA, VALUinputB;
 					
 
 escalar_ALU escalarALU(0, ALUop, ALUinputA, ALUinputB, Cout, ALUresult, Zero, Carry, OverFlow, Negative, eq, bgt);
@@ -18,31 +18,41 @@ vectorALU vectorALU(VCSub, ALUop, VALUinputA, VALUinputB, VALUresult);
 
 always_comb
 	begin
+		case(OpAForward)
+			0: begin RegisterInputA = OpA; RegisterInputAV = OpAV; end
+			1: begin RegisterInputA = forwarded; RegisterInputAV = forwardedV; end
+		endcase
+		
+		case(OpBForward)
+			0: begin RegisterInputB = OpB; RegisterInputBV = OpBV; end
+			1: begin RegisterInputB = forwarded; RegisterInputBV = forwardedV; end
+		endcase
+	
 		case(SelectorOpA)
-			0: ALUinputA = OpA;
-			1: ALUinputA = {16'b0, OpA[15:0]};
+			0: ALUinputA = RegisterInputA;
+			1: ALUinputA = {16'b0, RegisterInputA[15:0]};
 			default: ALUinputA = 'b0;
 		endcase
 		
 		case(SelectorOpB)
-			0: ALUinputB = OpB;
+			0: ALUinputB = RegisterInputB;
 			1: ALUinputB = Imm;
 			default: ALUinputB = 'b0;
 		endcase
 		
 		case(Rs1_sel)
-			0: VALUinputA = {8{OpA}};
-			1: VALUinputA = OpAV;
+			0: VALUinputA = {8{RegisterInputA}};
+			1: VALUinputA = RegisterInputAV;
 		endcase
 		
 		case(Rs2_sel)
-			0: VALUinputB = {8{OpB}};
-			1: VALUinputB = OpBV;
+			0: VALUinputB = {8{RegisterInputB}};
+			1: VALUinputB = RegisterInputBV;
 		endcase
 	
 		case(SelWriteData)
-			0: WriteData = OpA;
-			1: WriteData = {16'b0, OpB[15:0]};
+			0: WriteData = RegisterInputA;
+			1: WriteData = {16'b0, RegisterInputB[15:0]};
 		endcase
 	end
 endmodule
