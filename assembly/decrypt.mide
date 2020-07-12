@@ -1,7 +1,9 @@
 ADDI IC, R0, 3 ; Encrypted image counter
-SL IC, IC, 16
+ADDI R1, R0, 16
+SL IC, IC, R1
 ADDI IP, R0, 75 ; Encrypted image pointer
-SL IP, IP, 12
+ADDI R1, R0, 12
+SL IP, IP, R1
 ADD IP, IC, IP
 ADDI VP, R0, 1028 ; VRAM pointer
 ADDI R4, R0,  3763 ; n
@@ -40,7 +42,8 @@ CALL MODULO
 VSUB V2, V3, R0 ; MOV
 
 %ENDIF:
-SR R9, R9, 1
+ADDI R3, R0, 1
+SR R9, R9, R3
 VMUL V1, V1, V1
 VSUB V3, V1, R0 ; MOV
 CALL MODULO
@@ -62,3 +65,4 @@ VCSUB V3, V3, R4
 JMP RA
 
 %EXIT:
+ADD R0, R0, R0
