@@ -2,8 +2,8 @@
 `timescale 1ps/1ps
 module graphics_controller_test();
 	
-	logic clk, reset, write_enable, gpu_clk, image_select, hsync, vsync;
-	logic[31:0] address, data_input, data_output;
+	logic clk, reset, write_enable, gpu_clk, image_select, button_start, hsync, vsync;
+	logic[31:0] address, address_intr, data_input, data_output, intr_output;
 	logic[63:0] vector_input;
 	logic[127:0] vector_output;
 	logic[23:0] rgb_out;
@@ -13,7 +13,8 @@ module graphics_controller_test();
 	assign r = rgb_out[23:16];
 	assign g = rgb_out[15:8];
 	assign b = rgb_out[7:0];
-	graphics_controller DUT(clk, reset, write_enable, gpu_clk, image_select, address, data_input, vector_input, data_output, vector_output, hsync, vsync, rgb_out);
+	
+	graphics_controller DUT(clk, reset, write_enable, gpu_clk, image_select, button_start, address, address_intr, data_input, vector_input, data_output, intr_output, vector_output, hsync, vsync, rgb_out);
 	
 	integer write_data;
 

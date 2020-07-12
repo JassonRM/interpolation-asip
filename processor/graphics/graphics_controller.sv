@@ -1,15 +1,15 @@
-module graphics_controller(input logic clk, reset, write_enable, gpu_clk, image_select,
-								input logic[31:0] address, data_input,
+module graphics_controller(input logic clk, reset, write_enable, gpu_clk, image_select, button_start,
+								input logic[31:0] address, address_intr, data_input,
 								input logic[63:0] vector_input,
-								output logic[31:0] data_output,
+								output logic[31:0] data_output, intr_output,
 								output logic[127:0] vector_output,
 								output logic hsync, vsync,
 								output logic[23:0] rgb_out);
 	
 	logic[7:0] encrypted_gpu, decrypted_gpu;
 	logic[18:0] gpu_address;
-	
-	iomemory mem(clk, write_enable, gpu_clk, address, data_input, gpu_address, vector_input, encrypted_gpu, decrypted_gpu, data_output, vector_output);
+
+	iomemory mem(clk, write_enable, gpu_clk, button_start, address, address_intr, data_input, gpu_address, vector_input, encrypted_gpu, decrypted_gpu, data_output, intr_output, vector_output);
 
 	logic ready, den;
 	logic[23:0] rgb_in;
