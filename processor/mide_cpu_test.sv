@@ -29,6 +29,8 @@ integer write_data;
 		write_data = $fopen("C:/rsa-asip/processor/graphics/output/vga.txt");
 		// synthesis translate_on
 		
+		#17ms image_select = 1;
+		
 	end
 	
 	always

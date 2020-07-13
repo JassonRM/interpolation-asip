@@ -1,5 +1,5 @@
 module scalar_registers (input logic WriteEn,clk,
-					          input logic [4:0] Rs1, Rs2,rd,
+					          input logic [4:0] Rs1, Rs2, rd,
 								 input logic [31:0]InputData,
 								 output logic [31:0]Rout1, Rout2);
 								 

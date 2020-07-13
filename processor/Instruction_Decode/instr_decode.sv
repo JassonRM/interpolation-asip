@@ -1,6 +1,6 @@
 module instr_decode(input logic clk, rst, WRITEREGISTER_WB,  // WRITEREGISTER is the same signal WriteRegister, but comes from WriteBack.
 							input logic WRITEREGISTERVEC_WB, // WRITEREGISTERVEC is the signal that comes from WB.
-							input logic [31:0] RD_WB, // RD is the same as rd but the first one comes from Write Back.
+							input logic [4:0] RD_WB, // RD is the same as rd but the first one comes from Write Back.
 							input logic [255:0] INPUTDATA, // INPUTDATA is the same as InputData, but it comes from Write Back.
 							input logic [31:0] instruction,
 							//---Control Unit outputs---//
