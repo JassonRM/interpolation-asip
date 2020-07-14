@@ -20,7 +20,7 @@ integer write_data;
 		gpu_clk = 0;
 		reset = 0;
 		start_button = 0;
-		image_select = 0;
+		image_select = 1;
 		
 		#3846 reset = 1;
 		#3846 reset = 0;
@@ -29,7 +29,7 @@ integer write_data;
 		write_data = $fopen("C:/rsa-asip/processor/graphics/output/vga.txt");
 		// synthesis translate_on
 		
-		#17ms image_select = 1;
+//		#17ms image_select = 1;
 		
 	end
 	
