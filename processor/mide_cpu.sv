@@ -7,14 +7,14 @@ logic Zero, Carry, OverFlow, Negative, eq, bgt, stall, WriteRegister_WB, WriteRe
 logic [1:0] BranchSel, JMPSel, NextInstrSel, SelectorOpB_ID, BranchSel_ID, SelectorOpA_ID, SelectorOpB_EX, BranchSel_EX, SelectorOpA_EX;
 logic [2:0] ALUop_ID, ALUop_EX;
 logic [4:0] Rd_WB, Rd_EX, Rs1_EX, Rs2_EX, Rd_MEM;
-logic [31:0] address_ID, Rs, Branch, PC, instruction_IF, instruction_ID, OpA_ID, OpB_ID, Imm_ID, OpA_EX, OpB_EX, Imm_EX, forwarded1, forwarded2, ALUresult_EX, WriteData_EX, ALUresult_MEM, WriteData_MEM, ReadMem_MEM, ReadMem_WB;
+logic [31:0] address_ID, Rs, PC, instruction_IF, instruction_ID, OpA_ID, OpB_ID, Imm_ID, OpA_EX, OpB_EX, Imm_EX, forwarded1, forwarded2, ALUresult_EX, WriteData_EX, ALUresult_MEM, WriteData_MEM, ReadMem_MEM, ReadMem_WB;
 logic [63:0] vector_input;
 logic [127:0] ReadMemV_MEM, ReadMemV_WB;
 logic [255:0] data_WB, OpAV_ID, OpBV_ID, OpAV_EX, OpBV_EX, forwardedV1, forwardedV2, VALUresult_EX, VALUresult_MEM, result_MEM, result_WB; 
 					
 PC_deco PCdeco(BranchSel_EX, Zero, Carry, OverFlow, Negative, eq, bgt, JMPSel, NextInstrSel);
 
-instr_fetch IF (clk, rst, stall, NextInstrSel, address_ID, Rs, Branch, PC);
+instr_fetch IF (clk, rst, stall, NextInstrSel, address_ID, Rs, Imm_EX, PC);
 
 syncRegister #(32) IF_ID_REG(clk, rst, stall, instruction_IF, instruction_ID);
 
