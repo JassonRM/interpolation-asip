@@ -15,6 +15,7 @@ always_comb
 	if(VCSub & neg) out <= inputA;
 	else
 		case (ALUop)
+			3'b000: out <= inputA;
 			3'b010: out <= mul;
 			3'b001: out <= sub;
 			3'b111: out <= shift;
