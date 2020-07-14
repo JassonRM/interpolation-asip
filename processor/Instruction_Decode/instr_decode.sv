@@ -19,9 +19,10 @@ module instr_decode(input logic clk, rst, WRITEREGISTER_WB,  // WRITEREGISTER is
 							output logic [31:0] RSout1,RSout2,
 							output logic [31:0]ImmSignExtended,
 							output logic [255:0] VSout1, VSout2,
-							output logic [31:0] Address);
+							output logic [31:0] Address,
+							output logic [4:0] Rs1, Rs2);
 
-logic [4:0]Rs1_inst, Rs2_inst, Rd_inst, Rs2, Rs1;
+logic [4:0]Rs1_inst, Rs2_inst, Rd_inst;
 logic SelectorRs2, SelectorRs1; // This signal comes from Control Unit.
 
 assign Rd_inst = instruction[26:22];
