@@ -21,5 +21,5 @@ module escalar_ALU (input logic Cin,
 						  assign Negative = Result[31];
 						  assign Zero = ~Result[31];
 						  assign eq = (OpA == OpB);
-						  assign bgt = (OpA >= OpB);
+						  assign bgt = (OpA > OpB);
 endmodule

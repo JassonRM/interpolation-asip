@@ -12,7 +12,7 @@ logic [63:0] vector_input;
 logic [127:0] ReadMemV_MEM, ReadMemV_WB;
 logic [255:0] data_WB, OpAV_ID, OpBV_ID, OpAV_EX, OpBV_EX, forwardedV1, forwardedV2, VALUresult_EX, VALUresult_MEM, result_MEM, result_WB; 
 					
-PC_deco PCdeco(BranchSel_EX, Zero, Carry, OverFlow, Negative, eq, bgt, JMPSel, NextInstrSel);
+PC_deco PCdeco(BranchSel_EX, eq, bgt, JMPSel, NextInstrSel);
 
 instr_fetch IF (clk, rst, stall, NextInstrSel, address_ID, Rs, Imm_EX, PC);
 
@@ -24,7 +24,7 @@ assign Rs1_ID = instruction_ID[21:17];
 assign Rs2_ID = instruction_ID[16:12];
 
 
-
+ 
 instr_decode ID (clk, rst, WriteRegister_WB, WriteRegisterVec_WB, Rd_WB, data_WB, instruction_ID, JMPSel, WriteRegister_ID, MemWrite_ID, RegWrite_ID, VCSub_ID, ALUop_ID, SelectorOpB_ID, BranchSel_ID, SelectorOpA_ID, SelWriteData_ID, WriteRegisterVec_ID, OpA_ID, OpB_ID, Imm_ID, OpAV_ID, OpBV_ID, address_ID);
 
 syncRegister #(638) ID_EX_REG(clk, rst, stall, {Rd_ID, Rs1_ID, Rs2_ID, WriteRegister_ID, MemWrite_ID, RegWrite_ID, VCSub_ID, ALUop_ID, SelectorOpB_ID, BranchSel_ID, SelectorOpA_ID, SelWriteData_ID, WriteRegisterVec_ID, OpA_ID, OpB_ID, Imm_ID, OpAV_ID, OpBV_ID},
