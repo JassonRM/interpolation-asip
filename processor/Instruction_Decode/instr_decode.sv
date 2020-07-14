@@ -21,8 +21,7 @@ module instr_decode(input logic clk, rst, WRITEREGISTER_WB,  // WRITEREGISTER is
 							output logic [255:0] VSout1, VSout2,
 							output logic [31:0] Address);
 
-
-logic [4:0]Rs2;
+logic [4:0]Rs2,Rs1;
 logic SelectorRs2,SelectorRs1; // This signal comes from Control Unit.
 
 
@@ -34,9 +33,10 @@ Control_Unit CU (instruction[31:27],instruction[11:9],JMPSel,WriteRegister,MemWr
 
 //									 .Rs2 from instruction.
 mux2Decode M2D (SelectorRs2,instruction[16:12],Rs2);
-
-//														  Rs1  								    // Number of bits has to be specified because INPUTDATA is 256 bus, and in this case we just use the last 32 bits.            
-scalar_registers SR (WRITEREGISTER_WB, clk, instruction[21:17], Rs2, RD_WB, INPUTDATA[31:0],RSout1,RSout2);
+//		      Rs1                 Rd
+muxRegA MRs1 (instruction[21:17], instruction[26:22],SelectorRs1, Rs1);
+  								    // Number of bits has to be specified because INPUTDATA is 256 bus, and in this case we just use the last 32 bits.            
+scalar_registers SR (WRITEREGISTER_WB, clk, Rs1, Rs2, RD_WB, INPUTDATA[31:0],RSout1,RSout2);
 
 //						 Imm
 SignExtend16 SE16 (instruction[16:1],ImmSignExtended);
