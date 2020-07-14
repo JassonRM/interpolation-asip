@@ -23,14 +23,14 @@ module instr_decode(input logic clk, rst, WRITEREGISTER_WB,  // WRITEREGISTER is
 
 
 logic [4:0]Rs2;
-logic SelectorRs2; // This signal comes from Control Unit.
+logic SelectorRs2,SelectorRs1; // This signal comes from Control Unit.
 
 
 
 
 
 //						OPcode				ALUop
-Control_Unit CU (instruction[31:27],instruction[11:9],JMPSel,WriteRegister,MemWrite,RegWrite,vcsub,ALUOp,SelectorOpB,SelectorRs2,BranchSel,SelectorOpA,SelWriteData,WriteRegisterVec);
+Control_Unit CU (instruction[31:27],instruction[11:9],JMPSel,WriteRegister,MemWrite,RegWrite,vcsub,ALUOp,SelectorOpB,SelectorRs2,BranchSel,SelectorOpA,SelWriteData,WriteRegisterVec,SelectorRs1);
 
 //									 .Rs2 from instruction.
 mux2Decode M2D (SelectorRs2,instruction[16:12],Rs2);
