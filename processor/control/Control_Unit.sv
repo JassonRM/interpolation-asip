@@ -35,11 +35,11 @@ module Control_Unit (input logic [4:0] OPcode,
 									8'b00100000 : out_put <= 18'b0001x0000100001000; // Control signals for StoreWord.
 									8'b00101000 : out_put <= 18'b0001x0000100001010; // Control signals for StoreHalfWord.
 									
-									8'b10000000 : out_put <= 18'b01xxxxxxxxxx00xxx0; // Control signals for JMP.
+									8'b10000000 : out_put <= 18'b01xxxx000xxx00xxx0; // Control signals for JMP.
 									8'b00110000 : out_put <= 18'b10xxxxxxxxxx00xxx0; // Control signals for JR.
 									8'b10001000 : out_put <= 18'b00xxxxxxxxxx00xxx0; // Control signals for CALL (Check it after).
-									8'b01010000 : out_put <= 18'b01xxxx0010001000x0; // Control signals for BE.
-									8'b01011000 : out_put <= 18'b10xxxx0010001000x0; // Control signals for BGT.
+									8'b01010000 : out_put <= 18'b00xxxx0010000100x0; // Control signals for BE.
+									8'b01011000 : out_put <= 18'b00xxxx0010001000x0; // Control signals for BGT.
 									
 									8'b11000010 : out_put <= 18'b000000010xxx00xx11; // Control signals for VMUL.
 									8'b11000111 : out_put <= 18'b000000111xxx00xx11; // Control signals for VSR.
