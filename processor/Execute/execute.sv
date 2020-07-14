@@ -1,8 +1,8 @@
 module execute(input logic VCSub, SelWriteData, Rs1_sel, Rs2_sel, OpAForward, OpBForward,
 					input logic[1:0] SelectorOpA, SelectorOpB,
 					input logic[2:0] ALUop,
-					input logic[31:0] OpA, OpB, Imm, forwarded,
-					input logic[255:0] OpAV, OpBV, forwardedV,
+					input logic[31:0] OpA, OpB, Imm, forwarded1, forwarded2,
+					input logic[255:0] OpAV, OpBV, forwardedV1, forwardedV2,
 					output logic Zero, Carry, OverFlow, Negative, eq, bgt,
 					output logic[31:0] ALUresult, WriteData,
 					output logic[255:0] VALUresult);
@@ -20,12 +20,12 @@ always_comb
 	begin
 		case(OpAForward)
 			0: begin RegisterInputA = OpA; RegisterInputAV = OpAV; end
-			1: begin RegisterInputA = forwarded; RegisterInputAV = forwardedV; end
+			1: begin RegisterInputA = forwarded1; RegisterInputAV = forwardedV1; end
 		endcase
 		
 		case(OpBForward)
 			0: begin RegisterInputB = OpB; RegisterInputBV = OpBV; end
-			1: begin RegisterInputB = forwarded; RegisterInputBV = forwardedV; end
+			1: begin RegisterInputB = forwarded2; RegisterInputBV = forwardedV2; end
 		endcase
 	
 		case(SelectorOpA)

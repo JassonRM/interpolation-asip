@@ -7,10 +7,10 @@ logic Zero, Carry, OverFlow, Negative, eq, bgt, stall, WriteRegister_WB, WriteRe
 logic [1:0] BranchSel, JMPSel, NextInstrSel, SelectorOpB_ID, BranchSel_ID, SelectorOpA_ID, SelectorOpB_EX, BranchSel_EX, SelectorOpA_EX;
 logic [2:0] ALUop_ID, ALUop_EX;
 logic [4:0] Rd_WB, Rd_EX, Rs1_EX, Rs2_EX, Rd_MEM;
-logic [31:0] address_ID, Rs, Branch, PC, instruction_IF, instruction_ID, OpA_ID, OpB_ID, Imm_ID, OpA_EX, OpB_EX, Imm_EX, forwarded, ALUresult_EX, WriteData_EX, ALUresult_MEM, WriteData_MEM, ReadMem_MEM, ReadMem_WB;
+logic [31:0] address_ID, Rs, Branch, PC, instruction_IF, instruction_ID, OpA_ID, OpB_ID, Imm_ID, OpA_EX, OpB_EX, Imm_EX, forwarded1, forwarded2, ALUresult_EX, WriteData_EX, ALUresult_MEM, WriteData_MEM, ReadMem_MEM, ReadMem_WB;
 logic [63:0] vector_input;
 logic [127:0] ReadMemV_MEM, ReadMemV_WB;
-logic [255:0] data_WB, OpAV_ID, OpBV_ID, OpAV_EX, OpBV_EX, forwardedV, VALUresult_EX, VALUresult_MEM, result_MEM, result_WB; 
+logic [255:0] data_WB, OpAV_ID, OpBV_ID, OpAV_EX, OpBV_EX, forwardedV1, forwardedV2, VALUresult_EX, VALUresult_MEM, result_MEM, result_WB; 
 					
 PC_deco PCdeco(BranchSel_EX, Zero, Carry, OverFlow, Negative, eq, bgt, JMPSel, NextInstrSel);
 
@@ -30,7 +30,7 @@ instr_decode ID (clk, rst, WriteRegister_WB, WriteRegisterVec_WB, Rd_WB, data_WB
 syncRegister #(638) ID_EX_REG(clk, rst, stall, {Rd_ID, Rs1_ID, Rs2_ID, WriteRegister_ID, MemWrite_ID, RegWrite_ID, VCSub_ID, ALUop_ID, SelectorOpB_ID, BranchSel_ID, SelectorOpA_ID, SelWriteData_ID, WriteRegisterVec_ID, OpA_ID, OpB_ID, Imm_ID, OpAV_ID, OpBV_ID},
 																{Rd_EX, Rs1_EX, Rs2_EX, WriteRegister_EX, MemWrite_EX, RegWrite_EX, VCSub_EX, ALUop_EX, SelectorOpB_EX, BranchSel_EX, SelectorOpA_EX, SelWriteData_EX, WriteRegisterVec_EX, OpA_EX, OpB_EX, Imm_EX, OpAV_EX, OpBV_EX});
 
-execute EXE(VCSub_EX, SelWriteData_EX, Rs1_EX[4], Rs2_EX[4], OpAForward, OpBForward, SelectorOpA_EX, SelectorOpB_EX, ALUop_EX, OpA_EX, OpB_EX, Imm_EX, forwarded, OpAV_EX, OpBV_EX, forwardedV, Zero, Carry, OverFlow, Negative, eq, bgt, ALUresult_EX, WriteData_EX, VALUresult_EX);
+execute EXE(VCSub_EX, SelWriteData_EX, Rs1_EX[4], Rs2_EX[4], OpAForward, OpBForward, SelectorOpA_EX, SelectorOpB_EX, ALUop_EX, OpA_EX, OpB_EX, Imm_EX, forwarded1, forwarded2, OpAV_EX, OpBV_EX, forwardedV1, forwardedV2, Zero, Carry, OverFlow, Negative, eq, bgt, ALUresult_EX, WriteData_EX, VALUresult_EX);
 
 logic ex_mem_rst;
 assign ex_mem_rst = rst | stall;
@@ -63,6 +63,6 @@ assign write_enable_MEM = WriteRegister_MEM | WriteRegisterVec_MEM;
 assign write_enable_WB = WriteRegister_WB | WriteRegisterVec_WB;
 
 
-forwarding_unit Forwarding_unit(RegWrite_MEM, write_enable_MEM, write_enable_WB, Rs1_EX, Rs2_EX, Rd_MEM, Rd_WB, result_MEM, result_WB, stall, OpAForward, OpBForward, forwarded, forwardedV);
+forwarding_unit Forwarding_unit(RegWrite_MEM, write_enable_MEM, write_enable_WB, Rs1_EX, Rs2_EX, Rd_MEM, Rd_WB, result_MEM, result_WB, stall, OpAForward, OpBForward, forwarded1, forwarded2, forwardedV1, forwardedV2);
 
 endmodule
