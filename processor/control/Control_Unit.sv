@@ -19,7 +19,7 @@ module Control_Unit (input logic [4:0] OPcode,
 							assign {JMPSel, WriteRegister, MemWrite, RegWrite, vcsub, ALUOp, SelectorOpB, SelectorRs2, BranchSel,SelectorOpA,SelWriteData,WriteRegisterVec} = out_put;
 							
 							always @(*) begin
-								case ({OPcode,ALUop})       //  1 23456  7 89 A BC  -> Those numbers match with the Data order specified before.
+								case ({OPcode,ALUop})       //   1 23456  7 89 A BC  -> Those numbers match with the Data order specified before.
 								   
 									8'b00000000 : out_put <= 18'b001010000000000000; // Control signals for ADD.
 									8'b01000000 : out_put <= 18'b001010000010000000; // Control signals for ADD Inmediate.
@@ -35,7 +35,7 @@ module Control_Unit (input logic [4:0] OPcode,
 									8'b00100000 : out_put <= 18'b0001x0000100001000; // Control signals for StoreWord.
 									8'b00101000 : out_put <= 18'b0001x0000100001010; // Control signals for StoreHalfWord.
 									
-									8'b10000000 : out_put <= 18'b01xxxx000xxx00xxx0; // Control signals for JMP.
+									8'b10000000 : out_put <= 18'b01xxxxxxxxxx00xxx0; // Control signals for JMP.
 									8'b00110000 : out_put <= 18'b10xxxxxxxxxx00xxx0; // Control signals for JR.
 									8'b10001000 : out_put <= 18'b00xxxxxxxxxx00xxx0; // Control signals for CALL (Check it after).
 									8'b01010000 : out_put <= 18'b00xxxx0010000100x0; // Control signals for BE.
