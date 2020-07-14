@@ -9,6 +9,6 @@ module scalar_registers (input logic WriteEn,clk,
 									if (WriteEn)
 										scalar_reg[rd] <= InputData;
 										
-								 assign Rout1 = scalar_reg[Rs1];
-								 assign Rout2 = scalar_reg[Rs2]; 
+								 assign Rout1 = (Rs1 == 5'b00000) ? 32'b0 : scalar_reg[Rs1];
+								 assign Rout2 = (Rs2 == 5'b00000) ? 32'b0 : scalar_reg[Rs2]; 
 endmodule
