@@ -1,3 +1,4 @@
+ADDI SP, R0, 1024;
 ADDI IC, R0, 3 ; Encrypted image counter
 ADDI R1, R0, 16
 SL IC, IC, R1
@@ -53,7 +54,7 @@ JMP WHILE
 %RETURN:
 LDW RA, SP
 ADDI SP, SP, 4
-JMP RA
+JR RA
 
 ; Receives V3, R4 and returns on V3, uses V4 and V5
 %MODULO:
@@ -62,7 +63,7 @@ VSR V4, V4, R5
 VMUL V5, V4, R4
 VSUB V3, V3, V5
 VCSUB V3, V3, R4
-JMP RA
+JR RA
 
 %EXIT:
 ADD R0, R0, R0
