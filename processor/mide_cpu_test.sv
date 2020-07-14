@@ -16,7 +16,7 @@ mide_cpu DUT(clk, gpu_clk, reset, start_button, image_select, hsync, vsync, rgb_
 integer write_data;
 
 	initial begin
-		clk = 0;
+		clk = 1;
 		gpu_clk = 0;
 		reset = 0;
 		start_button = 0;

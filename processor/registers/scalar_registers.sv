@@ -3,7 +3,7 @@ module scalar_registers (input logic WriteEn,clk,
 								 input logic [31:0]InputData,
 								 output logic [31:0]Rout1, Rout2);
 								 
-								 logic [31:0] scalar_reg[14:0];
+								 logic [31:0] scalar_reg[15:0];
 								 
 								 always_ff @(posedge clk)
 									if (WriteEn)
