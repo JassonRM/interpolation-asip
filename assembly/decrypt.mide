@@ -2,8 +2,8 @@ ADDI SP, R0, 1024;
 ADDI IC, R0, 3 ; Encrypted image counter
 ADDI R1, R0, 16
 SL IC, IC, R1
-ADDI IP, R0, 75 ; Encrypted image pointer
-ADDI R1, R0, 12
+ADDI IP, R0, 25 ; Encrypted image pointer
+ADDI R1, R0, 13
 SL IP, IP, R1
 ADD IP, IC, IP
 ADDI VP, R0, 1028 ; VRAM pointer
@@ -11,6 +11,7 @@ ADDI R4, R0,  3763 ; n
 ADDI R5, R0, 7 ; k - 16
 ADDI R6, R0, 2229 ; m
 ADDI R7, R0, 1441 ; d
+ADDI R8, R0, 16 ; Constant 16
 
 %DECRYPT:
 VLDH V1, IC
@@ -59,7 +60,6 @@ JR RA
 ; Receives V3, R4 and returns on V3, uses V4 and V5
 %MODULO:
 VMUL V4, V3, R6
-ADDI R8, R0, 16
 VSR V6, V3, R8
 VMUL V6, V6, R6
 VSR V4, V4, R8

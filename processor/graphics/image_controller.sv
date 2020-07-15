@@ -1,4 +1,4 @@
-module image_controller #(width1 = 480, height1 = 320, width2 = 480, height2 = 640)
+module image_controller #(width1 = 320, height1 = 320, width2 = 320, height2 = 640)
 							  (input logic clk, reset, hsync, vsync, visible, image_selector,
 								output logic[1:0] color_selector,
 								output logic[18:0] address);

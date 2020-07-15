@@ -11,7 +11,7 @@ def main():
     with open("data.txt", "r") as input:
         data = input.readlines()
 
-    imageWidth = 480
+    imageWidth = 320
     imageHeight = 320
 
     encrypted = []

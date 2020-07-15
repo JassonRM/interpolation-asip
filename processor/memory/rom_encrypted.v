@@ -45,8 +45,8 @@ module rom_encrypted (
 	q_a,
 	q_b);
 
-	input	[14:0]  address_a;
-	input	[18:0]  address_b;
+	input	[13:0]  address_a;
+	input	[17:0]  address_b;
 	input	  clock_a;
 	input	  clock_b;
 	output	[127:0]  q_a;
@@ -106,16 +106,16 @@ module rom_encrypted (
 		altsyncram_component.init_file_layout = "PORT_B",
 		altsyncram_component.intended_device_family = "Cyclone V",
 		altsyncram_component.lpm_type = "altsyncram",
-		altsyncram_component.numwords_a = 19200,
-		altsyncram_component.numwords_b = 307200,
+		altsyncram_component.numwords_a = 16384,
+		altsyncram_component.numwords_b = 262144,
 		altsyncram_component.operation_mode = "BIDIR_DUAL_PORT",
 		altsyncram_component.outdata_aclr_a = "NONE",
 		altsyncram_component.outdata_aclr_b = "NONE",
 		altsyncram_component.outdata_reg_a = "UNREGISTERED",
 		altsyncram_component.outdata_reg_b = "UNREGISTERED",
 		altsyncram_component.power_up_uninitialized = "FALSE",
-		altsyncram_component.widthad_a = 15,
-		altsyncram_component.widthad_b = 19,
+		altsyncram_component.widthad_a = 14,
+		altsyncram_component.widthad_b = 18,
 		altsyncram_component.width_a = 128,
 		altsyncram_component.width_b = 8,
 		altsyncram_component.width_byteena_a = 1,
@@ -158,9 +158,9 @@ endmodule
 // Retrieval info: PRIVATE: JTAG_ENABLED NUMERIC "0"
 // Retrieval info: PRIVATE: JTAG_ID STRING "NONE"
 // Retrieval info: PRIVATE: MAXIMUM_DEPTH NUMERIC "0"
-// Retrieval info: PRIVATE: MEMSIZE NUMERIC "2457600"
+// Retrieval info: PRIVATE: MEMSIZE NUMERIC "2097152"
 // Retrieval info: PRIVATE: MEM_IN_BITS NUMERIC "0"
-// Retrieval info: PRIVATE: MIFfilename STRING "C:/rsa-asip/processor/memory/encrypted.mif"
+// Retrieval info: PRIVATE: MIFfilename STRING "C:/rsa-asip/binaries/encrypted.mif"
 // Retrieval info: PRIVATE: OPERATION_MODE NUMERIC "3"
 // Retrieval info: PRIVATE: OUTDATA_ACLR_B NUMERIC "0"
 // Retrieval info: PRIVATE: OUTDATA_REG_B NUMERIC "0"
@@ -192,33 +192,33 @@ endmodule
 // Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_A STRING "BYPASS"
 // Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_B STRING "BYPASS"
 // Retrieval info: CONSTANT: INDATA_REG_B STRING "CLOCK1"
-// Retrieval info: CONSTANT: INIT_FILE STRING "C:/rsa-asip/processor/memory/encrypted.mif"
+// Retrieval info: CONSTANT: INIT_FILE STRING "C:/rsa-asip/binaries/encrypted.mif"
 // Retrieval info: CONSTANT: INIT_FILE_LAYOUT STRING "PORT_B"
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone V"
 // Retrieval info: CONSTANT: LPM_TYPE STRING "altsyncram"
-// Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "19200"
-// Retrieval info: CONSTANT: NUMWORDS_B NUMERIC "307200"
+// Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "16384"
+// Retrieval info: CONSTANT: NUMWORDS_B NUMERIC "262144"
 // Retrieval info: CONSTANT: OPERATION_MODE STRING "BIDIR_DUAL_PORT"
 // Retrieval info: CONSTANT: OUTDATA_ACLR_A STRING "NONE"
 // Retrieval info: CONSTANT: OUTDATA_ACLR_B STRING "NONE"
 // Retrieval info: CONSTANT: OUTDATA_REG_A STRING "UNREGISTERED"
 // Retrieval info: CONSTANT: OUTDATA_REG_B STRING "UNREGISTERED"
 // Retrieval info: CONSTANT: POWER_UP_UNINITIALIZED STRING "FALSE"
-// Retrieval info: CONSTANT: WIDTHAD_A NUMERIC "15"
-// Retrieval info: CONSTANT: WIDTHAD_B NUMERIC "19"
+// Retrieval info: CONSTANT: WIDTHAD_A NUMERIC "14"
+// Retrieval info: CONSTANT: WIDTHAD_B NUMERIC "18"
 // Retrieval info: CONSTANT: WIDTH_A NUMERIC "128"
 // Retrieval info: CONSTANT: WIDTH_B NUMERIC "8"
 // Retrieval info: CONSTANT: WIDTH_BYTEENA_A NUMERIC "1"
 // Retrieval info: CONSTANT: WIDTH_BYTEENA_B NUMERIC "1"
 // Retrieval info: CONSTANT: WRCONTROL_WRADDRESS_REG_B STRING "CLOCK1"
-// Retrieval info: USED_PORT: address_a 0 0 15 0 INPUT NODEFVAL "address_a[14..0]"
-// Retrieval info: USED_PORT: address_b 0 0 19 0 INPUT NODEFVAL "address_b[18..0]"
+// Retrieval info: USED_PORT: address_a 0 0 14 0 INPUT NODEFVAL "address_a[13..0]"
+// Retrieval info: USED_PORT: address_b 0 0 18 0 INPUT NODEFVAL "address_b[17..0]"
 // Retrieval info: USED_PORT: clock_a 0 0 0 0 INPUT VCC "clock_a"
 // Retrieval info: USED_PORT: clock_b 0 0 0 0 INPUT NODEFVAL "clock_b"
 // Retrieval info: USED_PORT: q_a 0 0 128 0 OUTPUT NODEFVAL "q_a[127..0]"
 // Retrieval info: USED_PORT: q_b 0 0 8 0 OUTPUT NODEFVAL "q_b[7..0]"
-// Retrieval info: CONNECT: @address_a 0 0 15 0 address_a 0 0 15 0
-// Retrieval info: CONNECT: @address_b 0 0 19 0 address_b 0 0 19 0
+// Retrieval info: CONNECT: @address_a 0 0 14 0 address_a 0 0 14 0
+// Retrieval info: CONNECT: @address_b 0 0 18 0 address_b 0 0 18 0
 // Retrieval info: CONNECT: @clock0 0 0 0 0 clock_a 0 0 0 0
 // Retrieval info: CONNECT: @clock1 0 0 0 0 clock_b 0 0 0 0
 // Retrieval info: CONNECT: @data_a 0 0 128 0 GND 0 0 128 0
