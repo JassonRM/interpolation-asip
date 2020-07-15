@@ -1,2 +1,16 @@
 *.bak
 
+
+binaries/code.ver
+
+binaries/encrypted.ver
+
+processor/memory/mem_init/memgen.exe
+
+quartus_project/db/
+
+quartus_project/simulation/modelsim/
+
+quartus_project/output_files/
+
+quartus_project/incremental_db/
