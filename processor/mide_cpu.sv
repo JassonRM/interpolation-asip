@@ -61,6 +61,6 @@ assign write_enable_MEM = WriteRegister_MEM | WriteRegisterVec_MEM;
 assign write_enable_WB = WriteRegister_WB | WriteRegisterVec_WB;
 
 
-forwarding_unit Forwarding_unit(RegWrite_MEM, write_enable_MEM, write_enable_WB, Rs1_EX, Rs2_EX, Rd_MEM, Rd_WB, result_MEM, result_WB, stall, OpAForward, OpBForward, forwarded1, forwarded2, forwardedV1, forwardedV2);
+forwarding_unit Forwarding_unit(RegWrite_MEM, write_enable_MEM, write_enable_WB, Rs1_EX, Rs2_EX, Rd_MEM, Rd_WB, result_MEM, data_WB, stall, OpAForward, OpBForward, forwarded1, forwarded2, forwardedV1, forwardedV2);
 
 endmodule

@@ -1,4 +1,10 @@
-ADDI SP, R0, 1024;
+ADDI R1, R0, 1024
+
+%BUTTON:
+LDW R2, R1
+BE R2, R0, BUTTON
+
+ADDI SP, R0, 1024
 ADDI IC, R0, 3 ; Encrypted image counter
 ADDI R1, R0, 16
 SL IC, IC, R1
@@ -72,3 +78,4 @@ JR RA
 
 %EXIT:
 ADD R0, R0, R0
+JMP EXIT
