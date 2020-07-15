@@ -34,7 +34,7 @@ module Control_Unit (input logic [4:0] OPcode,
 									5'b10001 : out_put <= 19'b000x0xxxxxxx00xxx00; // Control signals for CALL (Check it after).
 									5'b01010 : out_put <= 19'b000x0x0010010100x01; // Control signals for BE.
 									5'b01011 : out_put <= 19'b000x0x0010011000x01; // Control signals for BGT.
-									5'b11000 : out_put <= {6'b000010, ALUop, 10'bxx000xx110}; // Control signals for VMUL, VSR, VSUB.
+									5'b11000 : out_put <= {6'b000010, ALUop, 10'bxx000xx110}; // Control signals for VMUL, VADD, VSR, VSUB.
 									5'b11110	: out_put <= 19'b000011001xx000xx110; // Control signals for VCSUB.
 									5'b11011 : out_put <= 19'b00000000010x0000110; // Control signals for VLDH.
 									5'b11101 : out_put <= 19'b00010000000x0011000; // Control signals for VSTB.

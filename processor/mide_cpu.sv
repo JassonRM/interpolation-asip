@@ -52,7 +52,7 @@ always_comb
 	else if(WriteRegister_WB)
 		data_WB = {223'b0, ReadMem_WB};
 	else if(WriteRegisterVec_WB)
-		data_WB = {16'b0, ReadMemV_WB[127:112], 16'b0, ReadMemV_WB[111:96], 16'b0, ReadMemV_WB[95:80], 16'b0, ReadMemV_WB[79:64], 16'b0, ReadMemV_WB[63:48], 16'b0, ReadMemV_WB[47:32], 16'b0, ReadMemV_WB[31:16], 16'b0, ReadMemV_WB[15:0]};
+		data_WB = {16'b0, ReadMemV_WB[119:112], ReadMemV_WB[127:120], 16'b0, ReadMemV_WB[103:96], ReadMemV_WB[111:104], 16'b0, ReadMemV_WB[87:80], ReadMemV_WB[95:88], 16'b0, ReadMemV_WB[71:64], ReadMemV_WB[79:72], 16'b0, ReadMemV_WB[55:48], ReadMemV_WB[63:56], 16'b0, ReadMemV_WB[39:32], ReadMemV_WB[47:40], 16'b0, ReadMemV_WB[23:16], ReadMemV_WB[31:24], 16'b0, ReadMemV_WB[7:0], ReadMemV_WB[15:8]};
 	else
 		data_WB = 'b0;
 
