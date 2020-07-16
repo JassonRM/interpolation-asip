@@ -1,10 +1,15 @@
 A continuación se muestra un listado de las herramientas utilizadas para el desarrollo del proyecto.
 
 QuartusPrime version 20.1 - modelacion de hardware
+
 Java jdk 8 - ambiente en el que corre el compilador
+
 Modelsim 2020.1 - simulacion procesador
+
 Intellij Idea - programacion java
+
 Python 3.6 - Guia de desencripcion de imagen
+
 VGA Simulator from https://ericeastwood.com/lab/vga-simulator/
 
 Para la ejecución del proyecto se deben seguir los siguientes pasos:
