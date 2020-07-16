@@ -22,15 +22,19 @@ integer write_data;
 		start_button = 0;
 		image_select = 0;
 		
-		#3846 reset = 1;
-		#3846 reset = 0;
+		#1000 reset = 1;
+		#1000 reset = 0;
 		
 		// synthesis translate_off
-		write_data = $fopen("C:/rsa-asip/results/vga.txt");
+		write_data = $fopen("C:/rsa-asip/results/encrypted.txt");
 		// synthesis translate_on
 		
-		#200000 start_button = 1;		
-		#17ms image_select = 1;
+		#100000 start_button = 1;		
+		#16.7ms image_select = 1;
+		
+		// synthesis translate_off
+		write_data = $fopen("C:/rsa-asip/results/decrypted.txt");
+		// synthesis translate_on
 		
 	end
 	
@@ -41,6 +45,6 @@ integer write_data;
 //		$display("%0d ps: %b %b %b %b %b", $time, hsync, vsync, r, g, b);
 	end
 	always
-		#3846 clk <= !clk;
+		#1000 clk <= !clk;
 
 endmodule 
