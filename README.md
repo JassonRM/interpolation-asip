@@ -1,5 +1,4 @@
-El código fuente del procesador puede encontrarse en el siguiente repositorio https://github.com/JassonRM/rsa-asip
-El código fuente del compilador se puede encontrar en el siguiente repositorio https://github.com/kennethGHS/MDIE_Compiler
+El código fuente puede encontrarse en el siguiente repositorio https://github.com/JassonRM/interpolation-asip
 
 A continuación se muestra un listado de las herramientas utilizadas para el desarrollo del proyecto.
 
