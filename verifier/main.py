@@ -1,11 +1,6 @@
 import numpy
 import cv2
-import math
 
-d = 1441
-n = 3763
-k = 23
-m = math.floor(2 ** k / n)
 
 def main():
     with open("data.txt", "r") as input:
@@ -19,55 +14,35 @@ def main():
         encrypted += line.split()
 
     print(encrypted.__len__())
-
     encrypted_image = numpy.array(encrypted, dtype=numpy.uint8)
     encrypted_image.shape = (2 * imageHeight, imageWidth)
     cv2.imshow("Encrypted", encrypted_image)
-
-    encrypted2byte = []
-    for i in range(0, encrypted.__len__(), 2):
-        byte1 = int(encrypted[i])
-        byte2 = int(encrypted[i + 1])
-        pixel = 256 * byte1 + byte2
-        encrypted2byte.append(pixel)
-
-    # Esto tiene que hacerlo el hardware
-    decrypted = []
-    for pixel in encrypted2byte:
-        decrypted.append(modular_pow(pixel, d, n))
-
-    decrypted_image = numpy.array(decrypted, dtype=numpy.uint8)
-    decrypted_image.shape = (imageHeight, imageWidth)
-    cv2.imshow("Decrypted", decrypted_image)
     cv2.waitKey()
+    output = [0] * 64
+    binomial([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 4, output, 4, 4)
+    print(output)
 
 
-def modular_pow(c, d, n):
-    print("Should output: ", pow(c, d, n))
-    if n == 1:
-        return 0
-    c = vector_modulo(c, n)
-    result = 1
-    while d > 0:
-        if (d % 2) == 1:
-            result = result * c  # Vector multiplication
-            result = vector_modulo(result, n)  # Vectorized modulo
-        d = d // 2
-        c = c * c  # Vector multiplication
-        c = vector_modulo(c, n)  # Vectorized modulo
-    print("Outputs: ", result)
-    return result
+def binomial(input_img, input_width, output_img, division_width, division_height):
+    column = 0
+    read_addr = 0
+    write_addr = 0
+    row = 0
+    while row < division_height:
+        chunk = input_img[read_addr:read_addr + 4]  # READ 4 bytes
+        ext = [chunk[0], chunk[0], chunk[1], chunk[1], chunk[2], chunk[2], chunk[3], chunk[3]]  # Bit extension
+        output_img[write_addr:write_addr + 8] = ext  # WRITE 8 bytes
+        output_img[write_addr + division_width * 2:write_addr + division_width * 2 + 8] = ext  # WRITE 8 bytes
+        column = column + 4
+        read_addr = read_addr + 4
+        write_addr = write_addr + 8
 
-
-def vector_modulo(a, n):
-    # Parte vectorizable
-    q = a * m  # Vector multiplication
-    q = q // (2 ** k)  # Vector shift right
-    b = q * n  # Vector multiplication
-    a = a - b  # Vector subtraction
-    if n <= a:  # Vector subtraction with flags
-        a = a - n  # Conditional vector subtraction
-    return a
+        if column >= division_width:  #
+            read_addr = read_addr - column
+            read_addr = read_addr + input_width
+            write_addr = write_addr + division_width * 2
+            row = row + 1  # Can be replaced by a multiplication at the beginning
+            column = 0
 
 
 if __name__ == "__main__":
