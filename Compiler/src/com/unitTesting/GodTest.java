@@ -2,11 +2,12 @@ package com.unitTesting;
 
 
 import com.syntax_analisis.SyntaxAnalyzerAndParser;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GodTest {
 
@@ -25,7 +26,5 @@ public class GodTest {
         result_actual.add("R3");
         assertEquals(result_actual, list);
         assertEquals(result_actual, SyntaxAnalyzerAndParser.parseLine("add R1,R2,R3;"));
-
-
     }
 }
