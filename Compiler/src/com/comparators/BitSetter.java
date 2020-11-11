@@ -1,5 +1,7 @@
 package com.comparators;
 
+import com.containers.InstructionOperation;
+
 import java.util.ArrayList;
 import java.util.BitSet;
 
@@ -114,165 +116,165 @@ public class BitSetter {
      * @return
      */
     public static ArrayList<BitSet> setOperation(String operand) {
-        BitSet instructBit = new BitSet(5);
-        BitSet aluBit = new BitSet(3);
+//        BitSet instructBit = new BitSet(5);
+//        BitSet aluBit = new BitSet(3);
         operand=operand.toLowerCase();
-
-        try {
-            switch (operand) {
-                case "add":
-                    break;
-                case "addi":
-                    instructBit.set(3, true);
-                    aluBit.set(0, true);
-                    break;
-                case "sub":
-                    aluBit.set(0, true);
-                    break;
-
-                case "subi":
-                    instructBit.set(0, true);
-                    instructBit.set(3, true);
-                    aluBit.set(2, true);
-                    break;
-                case "mul":
-                    aluBit.set(1, true);
-                    break;
-                case "ldw":
-                    instructBit.set(1, true);
-                    break;
-
-                case "ldh":
-                    instructBit.set(0, true);
-                    instructBit.set(1, true);
-                    break;
-
-                case "stw":
-                    instructBit.set(2, true);
-                    break;
-
-                case "sth":
-                    instructBit.set(0, true);
-                    instructBit.set(2, true);
-                    break;
-
-                case "jmp":
-                    instructBit.set(4, true);
-                    break;
-
-                case "jr":
-                    instructBit.set(1, true);
-                    instructBit.set(2, true);
-                    break;
-
-
-                case "call":
-                    instructBit.set(0, true);
-                    instructBit.set(4, true);
-                    break;
-
-                case "be":
-                    instructBit.set(1, true);
-                    instructBit.set(3, true);
-                    break;
-
-                case "bgt":
-                    instructBit.set(0, true);
-                    instructBit.set(1, true);
-                    instructBit.set(3, true);
-                    break;
-
-                case "sl":
-                    aluBit.set(2);
-                    break;
-
-
-                case "and":
-                    aluBit.set(0);
-                    aluBit.set(2);
-                    break;
-
-
-                case "sr":
-                    aluBit.set(2);
-                    aluBit.set(1);
-                    break;
-
-                case "vmul":
-                    aluBit.set(1);
-                    instructBit.set(3, true);
-                    instructBit.set(4, true);
-                    break;
-                case "vsr":
-                    aluBit.set(1);
-                    aluBit.set(0);
-                    aluBit.set(2);
-                    instructBit.set(3, true);
-                    instructBit.set(4, true);
-                    break;
-
-                case "vsub":
-                    instructBit.set(4, true);
-                    instructBit.set(3, true);
-                    aluBit.set(0);
-                    break;
-
-                case "vcsub":
-                    instructBit.set(1, true);
-                    instructBit.set(2, true);
-                    instructBit.set(3, true);
-                    instructBit.set(4, true);
-                    aluBit.set(0);
-                    break;
-
-                case "vldw":
-                    instructBit.set(1, true);
-                    instructBit.set(3, true);
-                    instructBit.set(4, true);
-                    break;
-
-                case "vldh":
-                    instructBit.set(0, true);
-                    instructBit.set(1, true);
-                    instructBit.set(3, true);
-                    instructBit.set(4, true);
-                    break;
-
-                case "vstw":
-                    instructBit.set(2, true);
-                    instructBit.set(3, true);
-                    instructBit.set(4, true);
-                    break;
-
-                case "vsth":
-                    instructBit.set(0, true);
-                    instructBit.set(1, true);
-                    instructBit.set(2, true);
-                    instructBit.set(4, true);
-                    break;
-                case "vstb":
-                    instructBit.set(0, true);
-                    instructBit.set(2, true);
-                    instructBit.set(3, true);
-                    instructBit.set(4, true);
-                    break;
-                case "vadd": //011
-                    instructBit.set(3, true);
-                    instructBit.set(4, true);
-                    aluBit.set(0);
-                    aluBit.set(1);
-                    break;
-                default:
-                    instructBit = null;
-                    aluBit = null;
-            }
-        } catch (Exception e) {
-            return null;
-        }
-        ArrayList<BitSet> operators = new ArrayList<>();
-        operators.add(instructBit);
-        operators.add(aluBit);
-        return operators;
+//
+//        try {
+//            switch (operand) {
+//                case "add":
+//                    break;
+//                case "addi":
+//                    instructBit.set(3, true);
+//                    aluBit.set(0, true);
+//                    break;
+//                case "sub":
+//                    aluBit.set(0, true);
+//                    break;
+//
+//                case "subi":
+//                    instructBit.set(0, true);
+//                    instructBit.set(3, true);
+//                    aluBit.set(2, true);
+//                    break;
+//                case "mul":
+//                    aluBit.set(1, true);
+//                    break;
+//                case "ldw":
+//                    instructBit.set(1, true);
+//                    break;
+//
+//                case "ldh":
+//                    instructBit.set(0, true);
+//                    instructBit.set(1, true);
+//                    break;
+//
+//                case "stw":
+//                    instructBit.set(2, true);
+//                    break;
+//
+//                case "sth":
+//                    instructBit.set(0, true);
+//                    instructBit.set(2, true);
+//                    break;
+//
+//                case "jmp":
+//                    instructBit.set(4, true);
+//                    break;
+//
+//                case "jr":
+//                    instructBit.set(1, true);
+//                    instructBit.set(2, true);
+//                    break;
+//
+//
+//                case "call":
+//                    instructBit.set(0, true);
+//                    instructBit.set(4, true);
+//                    break;
+//
+//                case "be":
+//                    instructBit.set(1, true);
+//                    instructBit.set(3, true);
+//                    break;
+//
+//                case "bgt":
+//                    instructBit.set(0, true);
+//                    instructBit.set(1, true);
+//                    instructBit.set(3, true);
+//                    break;
+//
+//                case "sl":
+//                    aluBit.set(2);
+//                    break;
+//
+//
+//                case "and":
+//                    aluBit.set(0);
+//                    aluBit.set(2);
+//                    break;
+//
+//
+//                case "sr":
+//                    aluBit.set(2);
+//                    aluBit.set(1);
+//                    break;
+//
+//                case "vmul":
+//                    aluBit.set(1);
+//                    instructBit.set(3, true);
+//                    instructBit.set(4, true);
+//                    break;
+//                case "vsr":
+//                    aluBit.set(1);
+//                    aluBit.set(0);
+//                    aluBit.set(2);
+//                    instructBit.set(3, true);
+//                    instructBit.set(4, true);
+//                    break;
+//
+//                case "vsub":
+//                    instructBit.set(4, true);
+//                    instructBit.set(3, true);
+//                    aluBit.set(0);
+//                    break;
+//
+//                case "vcsub":
+//                    instructBit.set(1, true);
+//                    instructBit.set(2, true);
+//                    instructBit.set(3, true);
+//                    instructBit.set(4, true);
+//                    aluBit.set(0);
+//                    break;
+//
+//                case "vldw":
+//                    instructBit.set(1, true);
+//                    instructBit.set(3, true);
+//                    instructBit.set(4, true);
+//                    break;
+//
+//                case "vldh":
+//                    instructBit.set(0, true);
+//                    instructBit.set(1, true);
+//                    instructBit.set(3, true);
+//                    instructBit.set(4, true);
+//                    break;
+//
+//                case "vstw":
+//                    instructBit.set(2, true);
+//                    instructBit.set(3, true);
+//                    instructBit.set(4, true);
+//                    break;
+//
+//                case "vsth":
+//                    instructBit.set(0, true);
+//                    instructBit.set(1, true);
+//                    instructBit.set(2, true);
+//                    instructBit.set(4, true);
+//                    break;
+//                case "vstb":
+//                    instructBit.set(0, true);
+//                    instructBit.set(2, true);
+//                    instructBit.set(3, true);
+//                    instructBit.set(4, true);
+//                    break;
+//                case "vadd": //011
+//                    instructBit.set(3, true);
+//                    instructBit.set(4, true);
+//                    aluBit.set(0);
+//                    aluBit.set(1);
+//                    break;
+//                default:
+//                    instructBit = null;
+//                    aluBit = null;
+//            }
+//        } catch (Exception e) {
+//            return null;
+//        }
+//        ArrayList<BitSet> operators = new ArrayList<>();
+//        operators.add(instructBit);
+//        operators.add(aluBit);
+        return InstructionOperation.getOpCodeAndAluOP(operand);
 
 
     }

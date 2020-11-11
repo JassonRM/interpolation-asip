@@ -1,9 +1,11 @@
 package com.company;
 
+import com.FileManagement.ConfigParse;
 import com.FileManagement.FileManager;
 import com.comparators.BitSetter;
 import com.comparators.BitToHex;
 import com.containers.Instruction;
+import com.containers.InstructionOperation;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -19,12 +21,15 @@ public class Main {
     // a default constructor
 
     public static void main(String[] args) throws IOException {
+        ConfigParse.readFile("Configuration");
 
+        InstructionOperation.printInstructions();
         filechooser.execute();
 
 
        // printBits(BitSetter.intToBitSet(131072 ,16));
         Instruction.printErrors();
+
 
     }
 

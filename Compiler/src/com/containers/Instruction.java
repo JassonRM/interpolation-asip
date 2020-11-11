@@ -62,7 +62,7 @@ public class Instruction {
         }
         if (parsedLine == null) {
             error = true;
-            errorType = "No se logro leer la linea";
+            errorType = "No se logro leer la linea parsed line null";
         }
     }
 
@@ -115,7 +115,7 @@ public class Instruction {
         int type = TypeComparator.type(this.parsedLine.get(0));
         if (type == -1) {
             error = true;
-            errorType = "No se logro identificar la operacion";
+            errorType = "No se logro identificar la operacion type negativo";
         } else if (type == 1) {
             parseRType();
 
@@ -222,6 +222,7 @@ public class Instruction {
     }
 
     private void setOpCode() {
+        if (this.bitLine==null){}
         BitSet opCode = this.bitLine.get(0);
         int i = 0;
         int len = 5;
