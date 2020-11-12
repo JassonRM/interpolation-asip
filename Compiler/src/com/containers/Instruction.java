@@ -178,6 +178,9 @@ public class Instruction {
     }
 
     private void setRDnRS1() {
+        if (this.error){
+            return;
+        }
         try {
 
 
@@ -204,6 +207,9 @@ public class Instruction {
 
     }
     private void setRS1Special() {
+        if (this.error){
+            return;
+        }
         try {
             BitSet Rs1 = this.bitLine.get(2);
             int beginIndex = 22;
@@ -222,7 +228,11 @@ public class Instruction {
     }
 
     private void setOpCode() {
-        if (this.bitLine==null){}
+        if (this.bitLine==null){
+        this.error = true;
+        this.errorType = "Error en la linea, no se logra identificar";
+        return;
+        }
         BitSet opCode = this.bitLine.get(0);
         int i = 0;
         int len = 5;
@@ -233,6 +243,9 @@ public class Instruction {
         }
     }
     private void setRs2Special(){
+        if (this.error){
+            return;
+        }
         BitSet Rs1;
         try {
             Rs1 = this.bitLine.get(3);
@@ -249,6 +262,9 @@ public class Instruction {
         }
     }
     private void setRs2() {
+        if (this.error){
+            return;
+        }
         BitSet Rs1;
         try {
             Rs1 = this.bitLine.get(4);
@@ -266,6 +282,9 @@ public class Instruction {
     }
 
     private void setAddress() {
+        if (this.error){
+            return;
+        }
         BitSet address = this.bitLine.get(2);
         int i = 0;
         int len = 27;
@@ -277,6 +296,9 @@ public class Instruction {
     }
 
     private void setImm() {
+        if (this.error){
+            return;
+        }
         int i = 0;
         BitSet imm = this.bitLine.get(4);
         int len = 16;
@@ -292,6 +314,9 @@ public class Instruction {
     }
 
     private void setALUop() {
+        if (this.error){
+            return;
+        }
         int i = 0;
         BitSet ALUop = this.bitLine.get(1);
         int len = 3;
@@ -304,6 +329,9 @@ public class Instruction {
     }
 
     private void setRs1() {
+        if (this.error){
+            return;
+        }
         BitSet Rs1 = this.bitLine.get(2);
         int i = 0;
         int beginIndex = 17;
