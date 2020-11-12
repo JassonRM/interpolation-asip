@@ -1,0 +1,137 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "quotient[0]",
+					"strict" : false
+				},
+				{
+					"name" : "quotient[1]",
+					"strict" : false
+				},
+				{
+					"name" : "quotient[2]",
+					"strict" : false
+				},
+				{
+					"name" : "quotient[3]",
+					"strict" : false
+				},
+				{
+					"name" : "quotient[4]",
+					"strict" : false
+				},
+				{
+					"name" : "quotient[5]",
+					"strict" : false
+				},
+				{
+					"name" : "quotient[6]",
+					"strict" : false
+				},
+				{
+					"name" : "quotient[7]",
+					"strict" : false
+				},
+				{
+					"name" : "remain[0]",
+					"strict" : false
+				},
+				{
+					"name" : "remain[1]",
+					"strict" : false
+				},
+				{
+					"name" : "remain[2]",
+					"strict" : false
+				},
+				{
+					"name" : "remain[3]",
+					"strict" : false
+				},
+				{
+					"name" : "remain[4]",
+					"strict" : false
+				},
+				{
+					"name" : "remain[5]",
+					"strict" : false
+				},
+				{
+					"name" : "remain[6]",
+					"strict" : false
+				},
+				{
+					"name" : "remain[7]",
+					"strict" : false
+				},
+				{
+					"name" : "denom[7]",
+					"strict" : false
+				},
+				{
+					"name" : "denom[6]",
+					"strict" : false
+				},
+				{
+					"name" : "denom[5]",
+					"strict" : false
+				},
+				{
+					"name" : "denom[4]",
+					"strict" : false
+				},
+				{
+					"name" : "denom[2]",
+					"strict" : false
+				},
+				{
+					"name" : "denom[1]",
+					"strict" : false
+				},
+				{
+					"name" : "denom[0]",
+					"strict" : false
+				},
+				{
+					"name" : "numer[5]",
+					"strict" : false
+				},
+				{
+					"name" : "numer[6]",
+					"strict" : false
+				},
+				{
+					"name" : "denom[3]",
+					"strict" : false
+				},
+				{
+					"name" : "numer[7]",
+					"strict" : false
+				},
+				{
+					"name" : "numer[0]",
+					"strict" : false
+				},
+				{
+					"name" : "numer[1]",
+					"strict" : false
+				},
+				{
+					"name" : "numer[2]",
+					"strict" : false
+				},
+				{
+					"name" : "numer[3]",
+					"strict" : false
+				},
+				{
+					"name" : "numer[4]",
+					"strict" : false
+				}
+			]
+		}
+	]
+}
