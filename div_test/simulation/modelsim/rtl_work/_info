@@ -1,0 +1,57 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/WPC/Documents/div_test/simulation/modelsim
+vram
+!s110 1605145571
+!i10b 1
+!s100 7OM6TnhEe5H54bW>IJFdk2
+IRoUL<fY]_J=mEHioPd:<Y1
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1605141684
+8C:/Users/WPC/Documents/div_test/ram.v
+FC:/Users/WPC/Documents/div_test/ram.v
+L0 39
+Z2 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z3 !s108 1605145571.000000
+!s107 C:/Users/WPC/Documents/div_test/ram.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/WPC/Documents/div_test|C:/Users/WPC/Documents/div_test/ram.v|
+!i113 1
+o-vlog01compat -work work
+!s92 -vlog01compat -work work +incdir+C:/Users/WPC/Documents/div_test
+Z4 tCvgOpt 0
+vram_test
+DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+!s110 1605145572
+!i10b 1
+!s100 6=Ld]U;TTFgI7MW77ofSL2
+I?Zhm3G[KQlXKZkHU4U^8U2
+R1
+!s105 ram_test_sv_unit
+S1
+R0
+w1605145552
+8C:/Users/WPC/Documents/div_test/ram_test.sv
+FC:/Users/WPC/Documents/div_test/ram_test.sv
+L0 2
+R2
+r1
+!s85 0
+31
+R3
+!s107 C:/Users/WPC/Documents/div_test/ram_test.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/WPC/Documents/div_test|C:/Users/WPC/Documents/div_test/ram_test.sv|
+!i113 1
+o-sv -work work
+!s92 -sv -work work +incdir+C:/Users/WPC/Documents/div_test
+R4
