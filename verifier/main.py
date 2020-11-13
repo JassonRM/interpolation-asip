@@ -11,7 +11,7 @@ def main():
     # quadrant_size -= quadrant_size % 4
     # output = [0] * (2 * quadrant_size) ** 2
     quadrant_size -= quadrant_size % 2
-    print(input_image.shape[0])
+    print(quadrant_size)
     output = [0] * (3 * quadrant_size - 2) ** 2
     # nearest_neighbours(input_image.flatten(), input_image.shape[1], output, quadrant_size, quadrant_size)
     bilinear(input_image.flatten(), input_image.shape[1], output, quadrant_size, quadrant_size)
@@ -48,7 +48,7 @@ def nearest_neighbours(input_img, input_width, output_img, division_width, divis
 
 def bilinear(input_img, input_width, output_img, division_width, division_height):
     column = 1
-    read_addr = translate_quadrant(10, input_width, 384)
+    read_addr = 0
     write_addr = 0
     row = 1
     while row <= division_height - 1:

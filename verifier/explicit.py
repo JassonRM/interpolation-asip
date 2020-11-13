@@ -9,11 +9,11 @@ img_width = input_image.shape[1]
 div_width = sll(img_width, 2)  # div by 4
 div_height = sll(img_height, 2)  # div by 4
 
-quadrant = 10
+quadrant = 0
 
 
 def translate_quadrant(quadrant):
-    result = 0
+    result = add(0, 0)
     row = sll(quadrant, 2)  # div by 4
     col = add(quadrant, 0)  # addi
     height_step = mult(div_height, img_width)
@@ -29,10 +29,11 @@ def translate_quadrant(quadrant):
 
 def nearest_neighbours(img, output_img):
     read_addr = translate_quadrant(quadrant)
-    write_addr = 0
 
-    column = 0
-    row = 0
+    # not necessary to initialize in assembly
+    write_addr = add(0, 0)
+    column = add(0, 0)
+    row = add(0, 0)
 
     while div_height > row:
         chunk = vldb(img, read_addr)
@@ -53,55 +54,66 @@ def nearest_neighbours(img, output_img):
             write_addr = add(write_addr, div_width)
             write_addr = add(write_addr, div_width)
 
-            row = add(row, 1)  # Can be replaced by a multiplication at the beginning
+            row = add(row, 1)
             column = add(0, 0)
 
 
-def bilinear(input_img, input_width, output_img, division_width, division_height):
-    column = 1
-    read_addr = 100
-    write_addr = 0
-    row = 1
-    while row <= division_height - 1:
-        chunk = input_img[read_addr:read_addr + 2]  # READ 2 bytes
-        chunk2 = input_img[read_addr + input_width:read_addr + input_width + 2]  # READ 2 bytes
-        temp1 = chunk[0]
-        temp2 = chunk[1]
-        out1 = [temp1, (temp1 * 2 / 3 + temp2 / 3) // 1, (temp1 / 3 + temp2 * 2 / 3) // 1, temp2]
+def bilinear(img, output_img):
+    read_addr = translate_quadrant(quadrant)
+    write_addr = add(0, 0)
 
-        temp1 = (chunk[0] * 2 / 3 + chunk2[0] * 1 / 3) // 1
-        temp2 = (chunk[1] * 2 / 3 + chunk2[1] * 1 / 3) // 1
-        out2 = [temp1, (temp1 * 2 / 3 + temp2 / 3) // 1, (temp1 / 3 + temp2 * 2 / 3) // 1, temp2]
+    column = add(1, 0)
+    row = add(1, 0)
+    offset = mult(div_width, 3)
+    offset = sub(offset, 2)
 
-        temp1 = (chunk[0] / 3 + chunk2[0] * 2 / 3) // 1
-        temp2 = (chunk[1] / 3 + chunk2[1] * 2 / 3) // 1
-        out3 = [temp1, (temp1 * 2 / 3 + temp2 / 3) // 1, (temp1 / 3 + temp2 * 2 / 3) // 1, temp2]
+    while row <= div_height - 1:
+        chunk = vldb(img, read_addr)
+        temp_read = add(read_addr, img_width)
+        chunk2 = vldb(img, temp_read)
 
-        temp1 = chunk2[0]
-        temp2 = chunk2[1]
-        out4 = [temp1, (temp1 * 2 / 3 + temp2 / 3) // 1, (temp1 / 3 + temp2 * 2 / 3) // 1, temp2]
+        row1 = sbi(chunk)
+        row4 = sbi(chunk2)
+        row2 = vbi(row1, row4)
+        row3 = vbi(row4, row1)
 
-        output_img[write_addr:write_addr + 4] = out1  # WRITE 4 bytes
-        output_img[write_addr + division_width * 3 - 2:write_addr + division_width * 3 - 2 + 4] = out2  # WRITE 4 bytes
-        output_img[write_addr + division_width * 6 - 4:write_addr + division_width * 6 - 4 + 4] = out3  # WRITE 4 bytes
-        output_img[write_addr + division_width * 9 - 6:write_addr + division_width * 9 - 6 + 4] = out4  # WRITE 4 bytes
-        column = column + 1
-        read_addr = read_addr + 1
-        write_addr = write_addr + 3
+        vstw(output_img, row1, write_addr)
 
-        if column >= division_width:  #
-            read_addr = read_addr - column
-            read_addr = read_addr + input_width
-            write_addr = write_addr + division_width * 6 - 4 - 2
-            row = row + 1
-            column = 0
+        temp = add(write_addr, offset)
+        vstw(output_img, row2, temp)
+
+        temp = add(temp, offset)
+        vstw(output_img, row3, temp)
+
+        temp = add(temp, offset)
+        vstw(output_img, row4, temp)
+
+        column = add(column, 1)
+        read_addr = add(read_addr, 1)
+        write_addr = add(write_addr, 3)
+
+        if column >= div_width:  #
+            read_addr = sub(read_addr, column)
+            read_addr = add(read_addr, img_width)
+            write_addr = add(write_addr, offset)
+            write_addr = add(write_addr, offset)
+            write_addr = sub(write_addr, 2)
+            row = add(row, 1)
+            column = add(0, 0)
 
 
 def main():
-    output_img = [0] * div_width * div_height * 4
-    nearest_neighbours(input_image.flatten(), output_img)
-    output_image = numpy.array(output_img, dtype=numpy.uint8)
-    output_image.shape = (2 * div_height, 2 * div_width)
+    mode = 0
+    if mode == 1:
+        output_img = [0] * div_width * div_height * 4
+        nearest_neighbours(input_image.flatten(), output_img)
+        output_image = numpy.array(output_img, dtype=numpy.uint8)
+        output_image.shape = (2 * div_height, 2 * div_width)
+    else:
+        output_img = [0] * (3 * div_width - 2) * (3 * div_height - 2)
+        bilinear(input_image.flatten(), output_img)
+        output_image = numpy.array(output_img, dtype=numpy.uint8)
+        output_image.shape = (3 * div_height - 2, 3 * div_width - 2)
     cv2.imshow("Other", output_image)
     cv2.imshow("INPUT", input_image)
     cv2.waitKey()
