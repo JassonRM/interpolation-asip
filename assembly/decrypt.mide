@@ -66,11 +66,11 @@ JR RA
 ; Receives V3, R4 and returns on V3, uses V4 and V5
 %MODULO:
 VMUL V4, V3, R6
-VSR V6, V3, R8
+;VSR V6, V3, R8
 VMUL V6, V6, R6
-VSR V4, V4, R8
+;VSR V4, V4, R8
 VADD V4, V4, V6
-VSR V4, V4, R5
+;VSR V4, V4, R5
 VMUL V5, V4, R4
 VSUB V3, V3, V5
 VCSUB V3, V3, R4
