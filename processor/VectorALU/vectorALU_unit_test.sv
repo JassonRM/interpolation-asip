@@ -28,6 +28,12 @@ initial begin
 	ALUop = 3'b111; #10;
 	assert(out === 32'b00000000000000000000000001110000) else $error("Shift 1 failed");
 	
+	VCSub = 0;
+	inputA = 32'd10;
+	inputB = 32'd20;
+	ALUop = 3'b101; #10;
+	assert(out === 32'd13) else $error("Bilinear interpolation failed");
+	
 	#10;
 end
 endmodule
