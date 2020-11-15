@@ -25,11 +25,11 @@ always_comb
 					encrypted_address = 'z;
 					data_output = button_read;
 				end
-			else if(address >= 'h30000 && address < 'h7B000)
+			else if(address >= 'h20000 && address < 'h47100)
 				begin
 					ram_address = 'z;
 					decrypted_address = 'z;
-					encrypted_address = (address - 'h30000) / 16;
+					encrypted_address = (address - 'h20000) / 4;
 					data_output = 'z;
 				end
 			else
@@ -52,12 +52,12 @@ always_comb
 					decrypted_address = 'z;
 					decrypted_we = 0;
 				end
-			else if(address >= 'h404 && address < 'h25C04)
+			else if(address >= 'h404 && address < 'h19404)
 				begin
 					ram_address = 'z;
 					ram_data = 'z;
 					ram_we = 0;
-					decrypted_address = (address - 'h404) / 8;
+					decrypted_address = (address - 'h404) / 4;
 					decrypted_we = 1;
 				end
 			else

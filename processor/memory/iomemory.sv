@@ -19,8 +19,8 @@ assign address_intr_2 = address_intr / 4;
 
 ram RAM(ram_address, address_intr_2, clk, ram_data, 'd0, ram_we, 1'b0, ram_read, intr_output);
 
-rom_encrypted Encrypted(encrypted_address, gpu_address, clk, gpu_clk, vector_output, encrypted_gpu);
+rom full_image(encrypted_address, gpu_address, clk, gpu_clk, vector_output, encrypted_gpu);
 
-vram_decrypted Decrypted(vector_input, gpu_address, gpu_clk, decrypted_address, clk, decrypted_we, decrypted_gpu);
+vram zoomed_image(vector_input, gpu_address, gpu_clk, decrypted_address, clk, decrypted_we, decrypted_gpu);
 
 endmodule 

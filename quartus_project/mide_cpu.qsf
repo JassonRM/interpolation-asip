@@ -39,7 +39,7 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CSEMA5F31C6
-set_global_assignment -name TOP_LEVEL_ENTITY vectorALU_test
+set_global_assignment -name TOP_LEVEL_ENTITY mide_cpu
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 20.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "16:40:19  JULY 15, 2020"
 set_global_assignment -name LAST_QUARTUS_VERSION "20.1.0 Lite Edition"
@@ -103,10 +103,6 @@ set_global_assignment -name SYSTEMVERILOG_FILE ../processor/ALU/mul.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../processor/ALU/escalar_ALU.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../processor/ALU/and_.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../processor/ALU/add.sv
-set_global_assignment -name VERILOG_FILE ../processor/memory/vram_decrypted.v
-set_global_assignment -name QIP_FILE ../processor/memory/vram_decrypted.qip
-set_global_assignment -name VERILOG_FILE ../processor/memory/rom_encrypted.v
-set_global_assignment -name QIP_FILE ../processor/memory/rom_encrypted.qip
 set_global_assignment -name VERILOG_FILE ../processor/memory/ram.v
 set_global_assignment -name QIP_FILE ../processor/memory/ram.qip
 set_global_assignment -name SYSTEMVERILOG_FILE ../processor/memory/memory_test.sv
@@ -150,4 +146,6 @@ set_location_assignment PIN_AF9 -to image_select
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name QIP_FILE ../processor/memory/vram.qip
+set_global_assignment -name QIP_FILE ../processor/memory/rom.qip
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

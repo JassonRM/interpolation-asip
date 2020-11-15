@@ -1,7 +1,7 @@
 module top_vectorial_reg(input logic WriteEn,clk,
 					          input logic [4:0] Rs1, Rs2,rd,
-								 input logic [255:0]InputData,
-								 output logic [255:0]Rout1, Rout2);
+								 input logic [127:0]InputData,
+								 output logic [127:0]Rout1, Rout2);
 								 
 								 logic [4:0] rs1_dec, rs2_dec, rd_dec;
 								 

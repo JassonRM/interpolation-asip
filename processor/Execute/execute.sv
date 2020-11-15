@@ -2,14 +2,14 @@ module execute(input logic VCSub, SelWriteData, Rs1_sel, Rs2_sel, OpAForward, Op
 					input logic[1:0] SelectorOpA, SelectorOpB,
 					input logic[2:0] ALUop,
 					input logic[31:0] OpA, OpB, Imm, forwarded1, forwarded2,
-					input logic[255:0] OpAV, OpBV, forwardedV1, forwardedV2,
+					input logic[127:0] OpAV, OpBV, forwardedV1, forwardedV2,
 					output logic Zero, Carry, OverFlow, Negative, eq, bgt,
 					output logic[31:0] ALUresult, WriteData,
-					output logic[255:0] VALUresult);
+					output logic[127:0] VALUresult);
 
 logic Cout;
 logic[31:0] RegisterInputA, RegisterInputB, ALUinputA, ALUinputB;
-logic[255:0] RegisterInputAV, RegisterInputBV, VALUinputA, VALUinputB;
+logic[127:0] RegisterInputAV, RegisterInputBV, VALUinputA, VALUinputB;
 					
 
 escalar_ALU escalarALU(0, ALUop, ALUinputA, ALUinputB, Cout, ALUresult, Zero, Carry, OverFlow, Negative, eq, bgt);
