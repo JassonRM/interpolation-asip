@@ -4,18 +4,22 @@ from tkinter import messagebox
 import cv2
 import numpy as np
 import threading
+
 # This is a sample Python script.
 
 # Press Mayús+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
-methods_list = ["                                ", "Interpolación por el vecino más cercano", " Interpolación bilineal"]
+methods_list = ["                                ", "Interpolación por el vecino más cercano",
+                " Interpolación bilineal"]
+
 
 def ventanaDecodificar():
     ventanDeco = Toplevel(root)
     ventanDeco.title("Decodificar imagen")
     ventanDeco.geometry("400x200")
-    etiquetaExplicativa = Label(ventanDeco, text="Ingrese las dimensiones de la imagen a decodificar:").place(x=10, y=10)
+    etiquetaExplicativa = Label(ventanDeco, text="Ingrese las dimensiones de la imagen a decodificar:").place(x=10,
+                                                                                                              y=10)
     try:
         dimensionX = IntVar()
 
@@ -52,62 +56,73 @@ def decodificando(x, y, interpolacion):
     else:
         root.filename = filedialog.askopenfilename(initialdir="/home", title="Seleccione un archivo para decodificar",
                                                    filetypes=(("txt", "*txt"), ("all files", "*.*")))
-        # archivo = open("/home/edgar/Desktop/Arqui/imagenPrueba1.txt")
-        if interpolacion == methods_list[1]:
-            x = int(x/2)
-            y = int(y/2)
-        elif interpolacion == methods_list[2]:
-            x = int((x/4)*3 - 2)
-            y = int((y/4)*3 - 2)
+
+        x = x//4
+        y = y//4
+        if interpolacion == methods_list[1]:  # Nearest neighbor
+            x = 2 * x
+            y = 2 * y
+            intern_list = x*y
+        elif interpolacion == methods_list[2]: # Bilineal
+            x = (x * 3) - 2
+            y = (y * 3) - 2
+            intern_list = x*y
+        else:
+            x = x * 4
+            y = y * 4
+            intern_list = x*y
+
+
         print(x)
         print(y)
         try:
             archivo = open(root.filename)
-            # cols = 640
-            # rows = 480
             cols = x
             rows = y
             buffer1 = archivo.read()
+            print(buffer1)
             largoBuffer = len(buffer1)
             print(largoBuffer)
-            i = 0
-            j = 0
             numero = 0
             string = ""
-            largoBuffer1 = len(buffer1)
+            largoBuffer1 = int(len(buffer1))
             indexLista = 0
-            lista = np.zeros((1, largoBuffer1), np.uint8)
+            #lista = np.zeros((1, largoBuffer1 // 8), np.uint8)
+            lista = np.zeros((1, intern_list), np.uint8)
             lista.astype(int)
-            for i in range(largoBuffer1):
-                if buffer1[i] == ",":
-                    i += 1
-                    numero = int(string)
-                    string = ""
-                    lista[0, indexLista] = numero
-                    # print(lista[0,indexLista])
-                    indexLista += 1
-                else:
-                    string += buffer1[i]
+            i = 0
+            j = 0
+            while i < largoBuffer1 // 8:
+                # Read 1 byte:
+                j = i * 8
+                while j < i * 8 + 8:
+                    # Building 1 byte
+                    string += buffer1[j]
+                    j += 1
+                    print("Esto es j:" + str(j))
+                # Convert 1 byte in integer
+                pixel = int(string, base=2)
+                lista[0, i] = pixel
+                print("Esto es i:" + str(i))
+                i += 1
+                string = ""
             lista.astype(int)
-            # print(lista[0])
+            # Building a matrix of zeros, with output image size
             matriz = np.zeros((rows, cols), np.uint8)
             # matriz = np.zeros((cols,rows), np.uint8)
             largoLista = len(lista[0])
             i = 0
             fila = 0
             columna = 0
-            listapeq = 0
-            for i in range(largoLista):
+            #for i in range(largoLista):intern_list
+            for i in range(intern_list):
                 if columna == cols - 1:
-
                     matriz[fila, columna] = lista[0, i]
-
                     columna = 0
                     fila += 1
                 elif fila == rows - 1:
                     break
                 else:
-
                     matriz[fila, columna] = lista[0, i]
                     columna += 1
 
@@ -117,6 +132,7 @@ def decodificando(x, y, interpolacion):
         except:
             messagebox.showwarning("Alto!", "No ha elegido un archivo.")
 
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     root = Tk()
@@ -124,5 +140,7 @@ if __name__ == '__main__':
     root.geometry("250x100")
     # Boton que llama a la funcion de decodificar en donde se ingresan los valores de la dimension X y Y de la imagen.
     botonDecodificarArchivo = Button(root, text="Abrir archivo", command=lambda: ventanaDecodificar()).place(x=75, y=50)
-    etiquetaDecodificarImagen = Label(root, text="Para abrir un archivo de codificacion \n de imagen presione el boton de abajo.").place(x=0, y=10)
+    etiquetaDecodificarImagen = Label(root,
+                                      text="Para abrir un archivo de codificacion \n de imagen presione el boton de abajo.").place(
+        x=0, y=10)
     root.mainloop()
