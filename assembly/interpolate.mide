@@ -1,0 +1,15 @@
+ADDI R1, R0, 1024
+
+%BUTTON:
+LDW R2, R1
+BE R2, R0, BUTTON
+
+ADDI SP, R0, 1024
+ADDI IC, R0, 1 ; Full image counter (where it starts)
+ADDI R1, R0, 17
+SL IC, IC, R1
+ADDI IP, R0, 1137 ; Full image pointer (where it ends)
+ADDI R1, R0, 8
+SL IP, IP, R1
+ADD IP, IC, IP
+ADDI VP, R0, 1028 ; VRAM pointer
