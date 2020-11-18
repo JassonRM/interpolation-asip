@@ -23,7 +23,6 @@ module Control_Unit (input logic [4:0] OPcode,
 								case (OPcode)              //1 23456  7 89 A BCD  -> Those numbers match with the Data order specified before.
 									5'b00000 : out_put <= {6'b001010, ALUop, 10'b0000000000}; // Control signals for ADD, SUB, MUL, SL, AND, SR.
 									5'b01000 : out_put <= 19'b0010100000100000000; // Control signals for ADD Inmediate.
-									5'b01000 : out_put <= 19'b0010100000100000000; // Control signals for ADD Inmediate.
 									5'b01001 : out_put <= 19'b0010100010100000000; // Control signals for SUB Inmediate.
 									5'b00010 : out_put <= 19'b0010000001000000000; // Control signals for LoadWord.
 									5'b00011 : out_put <= 19'b0010000001000001000; // Control signals for LoadHalfWord.

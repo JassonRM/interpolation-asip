@@ -1,8 +1,8 @@
 module graphics_controller(input logic clk, reset, write_enable, gpu_clk, image_select, button_start,
 								input logic[31:0] address, address_intr, data_input,
-								input logic[63:0] vector_input,
+								input logic[31:0] vector_input,
 								output logic[31:0] data_output, intr_output,
-								output logic[127:0] vector_output,
+								output logic[31:0] vector_output,
 								output logic hsync, vsync,
 								output logic[23:0] rgb_out);
 	

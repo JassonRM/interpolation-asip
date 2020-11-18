@@ -1,9 +1,9 @@
 module iomemory(input logic clk, write_enable, gpu_clk, button_start,
 					input logic[31:0] data_address, address_intr, data_input, gpu_address,
-					input logic[63:0] vector_input,
+					input logic[31:0] vector_input,
 					output logic[7:0] encrypted_gpu, decrypted_gpu,
 					output logic[31:0] data_output, intr_output,
-					output logic[127:0] vector_output);
+					output logic[31:0] vector_output);
 
 logic decrypted_we, ram_we;
 logic[31:0] button_read, ram_read, ram_data, ram_address, encrypted_address, decrypted_address;
