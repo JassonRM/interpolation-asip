@@ -41,12 +41,12 @@ always_comb
 		endcase
 		
 		case(Rs1_sel)
-			0: VALUinputA = {8{RegisterInputA}};
+			0: VALUinputA = {4{RegisterInputA}};
 			1: VALUinputA = RegisterInputAV;
 		endcase
 		
 		case(Rs2_sel)
-			0: VALUinputB = {8{RegisterInputB}};
+			0: VALUinputB = {4{RegisterInputB}};
 			1: VALUinputB = RegisterInputBV;
 		endcase
 	
