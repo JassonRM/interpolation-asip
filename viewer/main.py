@@ -10,7 +10,7 @@ import threading
 # Press Mayús+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
-methods_list = ["                                ", "Interpolación por el vecino más cercano",
+methods_list = ["(Ninguna interpolación)", "Interpolación por el vecino más cercano",
                 " Interpolación bilineal"]
 
 
@@ -57,73 +57,74 @@ def decodificando(x, y, interpolacion):
         root.filename = filedialog.askopenfilename(initialdir="/home", title="Seleccione un archivo para decodificar",
                                                    filetypes=(("txt", "*txt"), ("all files", "*.*")))
 
-        x = x//4
-        y = y//4
+        x = x // 4
+        y = y // 4
         if interpolacion == methods_list[1]:  # Nearest neighbor
             x = 2 * x
             y = 2 * y
-            intern_list = x*y
-        elif interpolacion == methods_list[2]: # Bilineal
+        elif interpolacion == methods_list[2]:  # Bilineal
             x = (x * 3) - 2
             y = (y * 3) - 2
-            intern_list = x*y
         else:
             x = x * 4
             y = y * 4
-            intern_list = x*y
-
+        intern_list = x * y
 
         print(x)
         print(y)
         try:
-            archivo = open(root.filename)
+            # Opening file:
+            file = open(root.filename)
             cols = x
             rows = y
-            buffer1 = archivo.read()
+            # Reading file:
+            buffer1 = file.read()
             print(buffer1)
-            largoBuffer = len(buffer1)
-            print(largoBuffer)
+            # Getting the length of the buffer from file:
+            len_buffer = len(buffer1)
+            print(len_buffer)
             numero = 0
             string = ""
-            largoBuffer1 = int(len(buffer1))
+            # Getting the len of de buffer in bytes:
+            len_buffer1 = len_buffer // 8
             indexLista = 0
-            #lista = np.zeros((1, largoBuffer1 // 8), np.uint8)
-            lista = np.zeros((1, intern_list), np.uint8)
-            lista.astype(int)
+            # Building a empty list of buffer in bytes length:
+            list_ = np.zeros((1, len_buffer1), np.uint8)
+            # Setting the list as intiger type:
+            list_.astype(int)
             i = 0
-            j = 0
-            while i < largoBuffer1 // 8:
+            # Iterate over the buffer:
+            while i < len_buffer1:
                 # Read 1 byte:
                 j = i * 8
                 while j < i * 8 + 8:
-                    # Building 1 byte
+                    # Building 1 byte:
                     string += buffer1[j]
                     j += 1
-                    print("Esto es j:" + str(j))
-                # Convert 1 byte in integer
+                # Convert 1 byte in integer:
                 pixel = int(string, base=2)
-                lista[0, i] = pixel
-                print("Esto es i:" + str(i))
+                # Saving the pixel in the list_:
+                list_[0, i] = pixel * 100
                 i += 1
                 string = ""
-            lista.astype(int)
+            list_.astype(int)
             # Building a matrix of zeros, with output image size
             matriz = np.zeros((rows, cols), np.uint8)
             # matriz = np.zeros((cols,rows), np.uint8)
-            largoLista = len(lista[0])
-            i = 0
+            largoLista = len(list_[0])
             fila = 0
             columna = 0
-            #for i in range(largoLista):intern_list
+            # for i in range(largoLista):intern_list
+            # Building the matrix that will conform the final image:
             for i in range(intern_list):
                 if columna == cols - 1:
-                    matriz[fila, columna] = lista[0, i]
+                    matriz[fila, columna] = list_[0, i]
                     columna = 0
                     fila += 1
                 elif fila == rows - 1:
                     break
                 else:
-                    matriz[fila, columna] = lista[0, i]
+                    matriz[fila, columna] = list_[0, i]
                     columna += 1
 
             cv2.imshow("prueba", matriz)
