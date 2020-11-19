@@ -13,3 +13,148 @@ ADDI R1, R0, 8
 SL IP, IP, R1
 ADD IP, IC, IP
 ADDI VP, R0, 1028 ; VRAM pointer
+
+
+
+%MAIN
+ADDI R1, R0, HEIGHT ; IMG HEIGHT
+ADDI R2, R0, WIDTH ; IMG WIDTH
+ADDI R3, R0, 0 ; QUADRANT
+
+
+ADDI R9, R0, 2
+SL R4, R1, R9 ; DIV HEIGHT
+SL R5, R2, R9 ; DIV WIDTH
+
+JMP NEAREST_NEIGHBOURS
+;JMP BILINEAR
+
+;---------------------------------------------------------------
+%NEAREST_NEIGHBOURS
+CALL QUADRANT  ; Input image address
+ADDI R6, VP, 0 ; Output image Address
+
+ADDI R7, R0, 0 ; ROW
+ADDI R8, R0, 0 ; COL
+
+%NEAREST_NEIGHBOURS_LOOP
+BGT R4, R7, IN_NEAREST_NEIGHBOURS_LOOP
+JMP END
+%IN_NEAREST_NEIGHBOURS_LOOP
+
+VLDH V1, R9
+VMNI V2, V1 
+VSTW V2, R6
+
+ADD R10, R6, R5
+ADD R10, R10, R5
+VSTW V2, R10
+
+ADDI R8, R8, 2
+ADDI R9, R9, 2
+ADDI R6, R6, 4
+
+BGT R5, R8, NEAREST_NEIGHBOURS_LOOP
+
+SUB R9, R9, R8
+SUB R9, R9, R2
+ADD R6, R6, R5
+ADD R6, R6, R5
+
+ADDI R7, R7, 1
+ADDI R8, R0, 0 
+JMP NEAREST_NEIGHBOURS_LOOP
+;---------------------------------------------------------------
+
+
+;---------------------------------------------------------------
+%BILINEAR
+CALL QUADRANT  ; Input image address
+ADDI R6, VP, 0 ; Output image Address
+
+ADDI R7, R0, 1 ; ROW
+ADDI R8, R0, 1 ; COL
+
+ADDI R3, R0, 3 
+MULT R3, R3, R5
+SUBI R3, R3, 2 ; OFFSET
+
+
+%BILINEAR_LOOP
+SUBI R10, R4, 1
+BGT R7, R10, END
+
+VLDH V1, R9
+ADD R10, R9, R2
+VLDH V4, R10
+
+VBIH V1, V1
+VBIH V4, V4
+
+VBIV V2, V1, V4
+VBIV V3, V4, V1
+
+VSTW V1, R6
+
+ADD R10, R6, R3
+VSTW V2, R10
+
+ADD R10, R6, R3
+VSTW V3, R10
+
+ADD R10, R6, R3
+VSTW V4, R10
+
+ADDI R8, R8, 1
+ADDI R9, R9, 1
+ADDI R6, R6, 3
+
+BGT R5, R8, BILINEAR_LOOP
+
+SUB R9, R9, R8
+SUB R9, R9, R2
+ADD R6, R6, R3
+ADD R6, R6, R3
+SUBI R6, R6, 2
+
+ADDI R7, R7, 1
+ADDI R8, R0, 0 
+JMP BILINEAR_LOOP
+;---------------------------------------------------------------
+
+;---------------------------------------------------------------
+; Receives quadrant in R3, returns address in R9
+
+%QUADRANT:
+ADDI R9, R0, 2
+
+SL R6, R3, R9  ; ROW
+ADDI R7, R3, 0 ; COL
+
+MUL R8, R4, R2
+ADDI R9, IC, 0 ; RESULT
+
+%QUADRANT_ROW_LOOP
+BGT R6, R0, IN_QUADRANT_ROW_LOOP
+JMP CUADRANT_COL_LOOP
+
+%IN_QUADRANT_ROW_LOOP
+ADD R9, R9, R8
+SUBI R6, R6, 1
+SUBI R7, R7, 4
+JMP QUADRANT_ROW_LOOP
+
+%QUADRANT_COL_LOOP
+BGT R7, R0, IN_QUADRANT_COL_LOOP
+JMP QUADRANT_RETURN 
+%IN_QUADRANT_COL_LOOP
+ADD R9, R9, R5
+SUBI R7, R7, 1
+JMP QUADRANT_COL_LOOP
+
+%QUADRANT_RETURN
+JR RA
+;---------------------------------------------------------------
+
+%END
+
