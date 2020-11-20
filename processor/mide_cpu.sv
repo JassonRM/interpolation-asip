@@ -7,6 +7,7 @@ logic Zero, Carry, OverFlow, Negative, eq, bgt, stall, WriteRegister_WB, WriteRe
 logic [1:0] BranchSel, JMPSel, NextInstrSel, SelectorOpB_ID, BranchSel_ID, SelectorOpA_ID, SelectorOpB_EX, BranchSel_EX, SelectorOpA_EX;
 logic [2:0] ALUop_ID, ALUop_EX;
 logic [4:0] Rd_WB, Rd_EX, Rs1_EX, Rs2_EX, Rd_MEM;
+logic [7:0] encrypted_gpu, decrypted_gpu;
 logic [31:0] address_ID, PC, instruction_IF, instruction_ID, OpA_ID, OpB_ID, Imm_ID, OpA_EX, OpB_EX, Imm_EX, forwarded1, forwarded2, ALUresult_EX, WriteData_EX, ALUresult_MEM, WriteData_MEM, ReadMem_MEM, ReadMem_WB;
 logic [31:0] vector_input;
 logic [31:0] ReadMemV_MEM, ReadMemV_WB;
@@ -47,12 +48,12 @@ assign vector_input = {VALUresult_MEM[103:96], VALUresult_MEM[71:64], VALUresult
 
 		
 
-memory (clk, gpu_clk, !rst, start_button, image_select, MemWrite_MEM, WriteRegisterVec_MEM, data_address, PC, WriteData_MEM, ALUresult_MEM,vector_input,encrypted_gpu, decrypted_gpu, VALUresult_MEM,gpu_address, ReadMem_MEM, instruction_IF, ReadMemV_MEM, result_MEM);
+memory MEM(clk, gpu_clk, !rst, start_button, image_select, MemWrite_MEM, WriteRegisterVec_MEM, data_address, PC, WriteData_MEM, ALUresult_MEM,vector_input,encrypted_gpu, decrypted_gpu, VALUresult_MEM,gpu_address, ReadMem_MEM, instruction_IF, ReadMemV_MEM, result_MEM);
 
 always_comb
 		case(image_select)
 			1'b0 : vram_out <= encrypted_gpu;
-			1'b0 : vram_out <= decrypted_gpu;
+			1'b1 : vram_out <= decrypted_gpu;
 		endcase
 		
 					

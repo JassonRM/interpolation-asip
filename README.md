@@ -25,27 +25,25 @@ Para la ejecución del proyecto se deben seguir los siguientes pasos:
 
 vsim -L altera_mf_ver -L lpm_ver  work.mide_cpu_test
 add wave -position insertpoint  \
-sim:/mide_cpu_test/DUT/MEM/data_output \
-sim:/mide_cpu_test/DUT/MEM/data_input
+sim:/mide_cpu_test/clk \
+sim:/mide_cpu_test/gpu_address \
+sim:/mide_cpu_test/gpu_clk \
+sim:/mide_cpu_test/image_select \
+sim:/mide_cpu_test/reset \
+sim:/mide_cpu_test/start_button \
+sim:/mide_cpu_test/vram_out
 add wave -position insertpoint  \
-sim:/mide_cpu_test/DUT/EXE/VALUresult \
-sim:/mide_cpu_test/DUT/EXE/VALUinputB \
-sim:/mide_cpu_test/DUT/EXE/VALUinputA \
-sim:/mide_cpu_test/DUT/EXE/ALUresult \
-sim:/mide_cpu_test/DUT/EXE/ALUop \
-sim:/mide_cpu_test/DUT/EXE/ALUinputB \
-sim:/mide_cpu_test/DUT/EXE/ALUinputA
-add wave -position insertpoint  \
-sim:/mide_cpu_test/DUT/MEM/vector_output \
-sim:/mide_cpu_test/DUT/MEM/vector_input \
-sim:/mide_cpu_test/DUT/MEM/instr_output \
 sim:/mide_cpu_test/DUT/MEM/instr_address \
-sim:/mide_cpu_test/DUT/MEM/data_address
+sim:/mide_cpu_test/DUT/MEM/instr_output \
+sim:/mide_cpu_test/DUT/MEM/vector_input
 add wave -position insertpoint  \
-sim:/mide_cpu_test/rgb_out \
-sim:/mide_cpu_test/clk
-add wave -position insertpoint  \
-sim:/mide_cpu_test/DUT/result_WB
+sim:/mide_cpu_test/DUT/EXE/ALUinputA \
+sim:/mide_cpu_test/DUT/EXE/ALUinputB \
+sim:/mide_cpu_test/DUT/EXE/ALUop \
+sim:/mide_cpu_test/DUT/EXE/ALUresult \
+sim:/mide_cpu_test/DUT/EXE/VALUinputA \
+sim:/mide_cpu_test/DUT/EXE/VALUinputB \
+sim:/mide_cpu_test/DUT/EXE/VALUresult
 
 7. Correr la simulación por 2 frames con el comando
 
