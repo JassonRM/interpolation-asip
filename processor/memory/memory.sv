@@ -24,6 +24,4 @@ module memory (input logic clk, gpu_clk, reset, button_start, image_select, writ
 			default : ALUoutput = VALUresult;
 		
 		endcase
-	
-
 endmodule 

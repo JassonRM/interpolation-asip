@@ -5,7 +5,7 @@ logic clk, gpu_clk, reset, start_button, image_select;
 logic [7:0] rgb_out;
 logic [31:0] gpu_address;
 logic[7:0] vram_out;
-	
+integer f,i;
 mide_cpu DUT(clk, gpu_clk, reset, start_button, image_select, gpu_address, vram_out);
 
 
@@ -33,7 +33,7 @@ integer write_data;
 		//write_data = $fopen("C:/rsa-asip/results/decrypted.txt");
 		// synthesis translate_on
 		
-		f = $fopen("C:/Users/WPC/Documents/div_test/output.txt");
+		f = $fopen("C:/Users/WPC/Documents/proyecto2_arqui2/interpolation-asip/outputs/output.txt");
 		#400;
 		for (i = 0; i < 90000; i = i +1)begin
 			@(posedge clk);

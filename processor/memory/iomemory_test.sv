@@ -27,7 +27,6 @@ module iomemory_test();
 		#30 address = 32'h30004;
 	end
 
-
 	always #1 gpu_clk <= !gpu_clk;
 	always #1 gpu_address = gpu_address + 1;
 	always #5 clk <= !clk;
