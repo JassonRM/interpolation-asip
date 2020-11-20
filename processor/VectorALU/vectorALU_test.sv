@@ -45,6 +45,13 @@ initial begin
 	assert(out[63:32] === 32'd100) else $error("NNI 2 failed");
 	assert(out[95:64] === 32'd101) else $error("NNI 3 failed");
 	assert(out[127:96] === 32'd101) else $error("NNI 4 failed");
+	
+	VCSub = 0; 
+	ALUop = 3'b110; #10;
+	assert(out[31:0] === 32'd100) else $error("BIH 1 failed");
+	assert(out[63:32] === 32'd100) else $error("BIH 2 failed");
+	assert(out[95:64] === 32'd100) else $error("BIH 3 failed");
+	assert(out[127:96] === 32'd101) else $error("BIH 4 failed");
 
 	
 	#10;
