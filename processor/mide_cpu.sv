@@ -1,6 +1,6 @@
 module mide_cpu(input logic clk, gpu_clk, rst, start_button, image_select,
-					output logic hsync, vsync,
-					output logic[23:0] rgb_out);
+					input logic [31:0] gpu_address,
+					output logic[7:0] vram_out);
 
 logic Zero, Carry, OverFlow, Negative, eq, bgt, stall, WriteRegister_WB, WriteRegisterVec_WB, WriteRegister_ID, MemWrite_ID, RegWrite_ID, VCSub_ID, SelWriteData_ID, WriteRegisterVec_ID, SelWriteData_EX, WriteRegisterVec_EX, 
 		WriteRegister_EX, MemWrite_EX, RegWrite_EX, VCSub_EX, OpAForward, OpBForward, WriteRegister_MEM, MemWrite_MEM, RegWrite_MEM, WriteRegisterVec_MEM, RegWrite_WB; 
@@ -40,8 +40,22 @@ syncRegister #(201) EX_MEM_REG(clk, ex_mem_rst, '0, {Rd_EX, WriteRegister_EX, Me
 assign vector_input = {VALUresult_MEM[103:96], VALUresult_MEM[71:64], VALUresult_MEM[39:32], VALUresult_MEM[7:0]};
 															
 					
+//          1     1       1     1             1            1              1                      1            1   1               1              1             1               1            1              1               1     1      1
+//memory MEM(clk, gpu_clk, !rst, start_button, image_select, MemWrite_MEM, WriteRegisterVec_MEM, ALUresult_MEM, PC, WriteData_MEM, ALUresult_MEM, vector_input, VALUresult_MEM, ReadMem_MEM, instruction_IF, ReadMemV_MEM, hsync, vsync, rgb_out, result_MEM);
 
-memory MEM(clk, gpu_clk, !rst, start_button, image_select, MemWrite_MEM, WriteRegisterVec_MEM, ALUresult_MEM, PC, WriteData_MEM, ALUresult_MEM, vector_input, VALUresult_MEM, ReadMem_MEM, instruction_IF, ReadMemV_MEM, hsync, vsync, rgb_out, result_MEM);
+
+
+		
+
+memory (clk, gpu_clk, !rst, start_button, image_select, MemWrite_MEM, WriteRegisterVec_MEM, data_address, PC, WriteData_MEM, ALUresult_MEM,vector_input,encrypted_gpu, decrypted_gpu, VALUresult_MEM,gpu_address, ReadMem_MEM, instruction_IF, ReadMemV_MEM, result_MEM);
+
+always_comb
+		case(image_select)
+			1'b0 : vram_out <= encrypted_gpu;
+			1'b0 : vram_out <= decrypted_gpu;
+		endcase
+		
+					
 
 syncRegister #(200) MEM_WB_REG(clk, rst, '0, {Rd_MEM, WriteRegister_MEM, RegWrite_MEM, WriteRegisterVec_MEM, ReadMem_MEM, ReadMemV_MEM, result_MEM}, 
 															{Rd_WB, WriteRegister_WB, RegWrite_WB, WriteRegisterVec_WB, ReadMem_WB, ReadMemV_WB, result_WB});
