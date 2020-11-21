@@ -43,7 +43,7 @@ sim:/mide_cpu_test/DUT/EXE/ALUop \
 sim:/mide_cpu_test/DUT/EXE/ALUresult \
 sim:/mide_cpu_test/DUT/EXE/VALUinputA \
 sim:/mide_cpu_test/DUT/EXE/VALUinputB \
-sim:/mide_cpu_test/DUT/EXE/VALUresult
+sim:/mide_cpu_test/DUT/EXE/VALUresult \
 sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/write_enable \
 sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/address \
 sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/data_input \
