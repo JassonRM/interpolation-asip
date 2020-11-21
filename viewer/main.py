@@ -72,66 +72,26 @@ def decodificando(x, y, interpolacion):
 
         print(x)
         print(y)
+        # Opening file:
         try:
-            # Opening file:
             file = open(root.filename)
+     
             cols = x
             rows = y
             # Reading file:
-            buffer1 = file.read()
-            print(buffer1)
-            # Getting the length of the buffer from file:
-            len_buffer = len(buffer1)
-            print(len_buffer)
-            numero = 0
-            string = ""
-            # Getting the len of de buffer in bytes:
-            len_buffer1 = len_buffer // 8
-            indexLista = 0
-            # Building a empty list of buffer in bytes length:
-            list_ = np.zeros((1, len_buffer1), np.uint8)
-            # Setting the list as intiger type:
-            list_.astype(int)
-            i = 0
-            # Iterate over the buffer:
-            while i < len_buffer1:
-                # Read 1 byte:
-                j = i * 8
-                while j < i * 8 + 8:
-                    # Building 1 byte:
-                    string += buffer1[j]
-                    j += 1
-                # Convert 1 byte in integer:
-                pixel = int(string, base=2)
-                # Saving the pixel in the list_:
-                list_[0, i] = pixel * 100
-                i += 1
-                string = ""
-            list_.astype(int)
-            # Building a matrix of zeros, with output image size
-            matriz = np.zeros((rows, cols), np.uint8)
-            # matriz = np.zeros((cols,rows), np.uint8)
-            largoLista = len(list_[0])
-            fila = 0
-            columna = 0
-            # for i in range(largoLista):intern_list
-            # Building the matrix that will conform the final image:
-            for i in range(intern_list):
-                if columna == cols - 1:
-                    matriz[fila, columna] = list_[0, i]
-                    columna = 0
-                    fila += 1
-                elif fila == rows - 1:
-                    break
-                else:
-                    matriz[fila, columna] = list_[0, i]
-                    columna += 1
+            image = []
+
+            for i in range(x*y):
+                pixel = file.readline()
+                image.append(int(pixel, 2))
+
+            matriz = np.array(image).astype(np.uint8).reshape((x, y))
 
             cv2.imshow("prueba", matriz)
             cv2.waitKey(0)
             cv2.destroyWindow("prueba")
         except:
-            messagebox.showwarning("Alto!", "No ha elegido un archivo.")
+            messagebox.showwarning("Alto!", "Archivo invalido.")
 
 
 # Press the green button in the gutter to run the script.
