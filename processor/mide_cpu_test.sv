@@ -5,7 +5,7 @@ logic clk, gpu_clk, reset, start_button, image_select;
 logic [7:0] rgb_out;
 logic [31:0] gpu_address;
 logic[7:0] vram_out;
-integer f,i;
+integer f;
 mide_cpu DUT(clk, gpu_clk, reset, start_button, image_select, gpu_address, vram_out);
 
 	initial begin
@@ -14,6 +14,7 @@ mide_cpu DUT(clk, gpu_clk, reset, start_button, image_select, gpu_address, vram_
 		reset = 0;
 		start_button = 0;
 		image_select = 0;
+		gpu_address = 0;
 		
 		#1000 reset = 1;
 		#1000 reset = 0;
@@ -31,7 +32,7 @@ mide_cpu DUT(clk, gpu_clk, reset, start_button, image_select, gpu_address, vram_
 	always
 	begin
 		#1000 gpu_clk <= !gpu_clk;
-		gpu_address <= i;
+		gpu_address <= gpu_address + 1;
 		$fwrite(f,"%b", vram_out);
 	end
 	always
