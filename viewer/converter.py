@@ -165,7 +165,7 @@ def decodificando(x, y, interpolacion):
                 # Convert 1 byte in integer:
                 pixel = int(string, base=2)
                 # Saving the pixel in the list_:
-                list_[0, i] = pixel * 100
+                list_[0, i] = pixel
                 i += 1
                 string = ""
             list_.astype(int)
