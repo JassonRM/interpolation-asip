@@ -48,7 +48,7 @@ sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/write_enable \
 sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/address \
 sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/data_input \
 sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/data_output
-run 160000000
+run 500ns
 
 7. Correr la simulación por 2 frames con el comando
 
