@@ -74,19 +74,21 @@ def decodificando(x, y, interpolacion):
         print(y)
         # Opening file:
         try:
+
             file = open(root.filename)
-     
             cols = x
             rows = y
             # Reading file:
             image = []
-
+            
             for i in range(x*y):
                 pixel = file.readline()
-                image.append(int(pixel, 2))
-
+                try:
+                    image.append(int(pixel, 2))
+                except:
+                    print('TODO')
             matriz = np.array(image).astype(np.uint8).reshape((x, y))
-
+            
             cv2.imshow("prueba", matriz)
             cv2.waitKey(0)
             cv2.destroyWindow("prueba")
