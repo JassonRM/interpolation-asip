@@ -10,7 +10,7 @@ mide_cpu DUT(clk, gpu_clk, reset, start_button, image_select, gpu_address, vram_
 
 	initial begin
 		//synthesis translate_off
-		f = $fopen("D:/interpolation-asip/outputs/output.txt");
+		f = $fopen("../outputs/output.txt");
 		//synthesis translate_on
 		
 		clk = 1;
