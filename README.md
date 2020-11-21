@@ -44,6 +44,7 @@ sim:/mide_cpu_test/DUT/EXE/ALUresult \
 sim:/mide_cpu_test/DUT/EXE/VALUinputA \
 sim:/mide_cpu_test/DUT/EXE/VALUinputB \
 sim:/mide_cpu_test/DUT/EXE/VALUresult
+run 1ms
 
 7. Correr la simulación por 2 frames con el comando
 
