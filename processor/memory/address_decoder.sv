@@ -29,7 +29,7 @@ always_comb
 				begin
 					ram_address = 'z;
 					decrypted_address = 'z;
-					encrypted_address = (address - 'h20000) / 4;
+					encrypted_address = (address - 'h20000);
 					data_output = 'z;
 				end
 			else

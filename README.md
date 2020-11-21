@@ -35,7 +35,8 @@ sim:/mide_cpu_test/vram_out
 add wave -position insertpoint  \
 sim:/mide_cpu_test/DUT/MEM/instr_address \
 sim:/mide_cpu_test/DUT/MEM/instr_output \
-sim:/mide_cpu_test/DUT/MEM/vector_input
+sim:/mide_cpu_test/DUT/MEM/vector_input \
+sim:/mide_cpu_test/DUT/MEM/vector_output
 add wave -position insertpoint  \
 sim:/mide_cpu_test/DUT/EXE/ALUinputA \
 sim:/mide_cpu_test/DUT/EXE/ALUinputB \
@@ -48,7 +49,7 @@ sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/write_enable \
 sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/address \
 sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/data_input \
 sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/data_output
-run 500ns
+run 6000ns
 
 7. Correr la simulación por 2 frames con el comando
 
