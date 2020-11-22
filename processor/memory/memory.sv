@@ -1,5 +1,6 @@
 
-module memory (input logic clk, gpu_clk, reset, button_start, image_select, write_enable, select_alu,
+module memory (input logic clk, gpu_clk, reset, button_start, image_select, write_enable, select_alu, interpolation_type,
+					input logic[3:0] quadrant,
 					input logic[31:0] data_address, instr_address, data_input, ALUresult,
 					input logic[31:0] vector_input,
 					output logic[7:0] encrypted_gpu, decrypted_gpu,

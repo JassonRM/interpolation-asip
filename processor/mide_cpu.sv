@@ -1,4 +1,5 @@
-module mide_cpu(input logic clk, gpu_clk, rst, start_button, image_select,
+module mide_cpu(input logic clk, gpu_clk, rst, start_button, image_select, interpolation_type,
+					input logic [3:0] quadrant,
 					input logic [31:0] gpu_address,
 					output logic[7:0] vram_out);
 
@@ -48,7 +49,7 @@ assign vector_input = {VALUresult_MEM[103:96], VALUresult_MEM[71:64], VALUresult
 
 		
 
-memory MEM(clk, gpu_clk, !rst, start_button, image_select, MemWrite_MEM, WriteRegisterVec_MEM, ALUresult_MEM, PC, WriteData_MEM, ALUresult_MEM,vector_input,encrypted_gpu, decrypted_gpu, VALUresult_MEM,gpu_address, ReadMem_MEM, instruction_IF, ReadMemV_MEM, result_MEM);
+memory MEM(clk, gpu_clk, !rst, start_button, image_select, MemWrite_MEM, WriteRegisterVec_MEM, interpolation_type, quadrant, ALUresult_MEM, PC, WriteData_MEM, ALUresult_MEM,vector_input,encrypted_gpu, decrypted_gpu, VALUresult_MEM,gpu_address, ReadMem_MEM, instruction_IF, ReadMemV_MEM, result_MEM);
 
 always_comb
 		case(image_select)

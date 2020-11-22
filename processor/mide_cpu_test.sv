@@ -1,12 +1,13 @@
 `timescale 1 ps/ 1 ps
 module mide_cpu_test();
 
-logic clk, gpu_clk, reset, start_button, image_select;
+logic clk, gpu_clk, reset, start_button, image_select, interpolation_type;
+logic [3:0] quadrant;
 logic [7:0] rgb_out;
 logic [31:0] gpu_address;
 logic[7:0] vram_out;
 integer f, i;
-mide_cpu DUT(clk, gpu_clk, reset, start_button, image_select, gpu_address, vram_out);
+mide_cpu DUT(clk, gpu_clk, reset, start_button, image_select, interpolation_type, quadrant, gpu_address, vram_out);
 
 	initial begin
 		
@@ -15,6 +16,8 @@ mide_cpu DUT(clk, gpu_clk, reset, start_button, image_select, gpu_address, vram_
 		reset = 0;
 		start_button = 0;
 		image_select = 0;
+		interpolation_type = 0;
+		quadrant = 0;
 		gpu_address = 0;
 		
 		#1000 reset = 1;
