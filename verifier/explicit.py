@@ -67,23 +67,29 @@ def nearest_neighbours(img, output_img):
 
 
 def bilinear(img, output_img):
+    size = len(output_img)
     read_addr = translate_quadrant(quadrant)
     write_addr = add(0, 0)
 
-    column = add(1, 0)
-    row = add(1, 0)
+    column = add(0, 0)
+    row = add(0, 0)
     offset = mult(div_width, 3)
     offset = sub(offset, 2)
 
     while row <= div_height - 1:
-        chunk = vldb(img, read_addr)
-        temp_read = add(read_addr, img_width)
-        chunk2 = vldb(img, temp_read)
+        chunk11 = vldb(img, read_addr)
+        temp_read = add(read_addr, 4)
+        chunk12 = vldb(img, temp_read)
 
-        row1 = sbi(chunk)
-        row4 = sbi(chunk2)
-        row2 = vbi(row1, row4)
-        row3 = vbi(row4, row1)
+        temp_read = add(read_addr, img_width)
+        chunk21 = vldb(img, temp_read)
+        temp_read = add(temp_read, 4)
+        chunk22 = vldb(img, temp_read)
+
+        row1 = vbih1(chunk11)
+        row4 = vbih1(chunk21)
+        row2 = vbiv(row1, row4)
+        row3 = vbiv(row4, row1)
 
         vstb(output_img, row1, write_addr)
 
@@ -95,10 +101,44 @@ def bilinear(img, output_img):
 
         temp = add(temp, offset)
         vstb(output_img, row4, temp)
+        # -------------------------------------------------------
+        row1 = vbih2(chunk11)
+        row4 = vbih2(chunk21)
+        row2 = vbiv(row1, row4)
+        row3 = vbiv(row4, row1)
 
-        column = add(column, 1)
-        read_addr = add(read_addr, 1)
-        write_addr = add(write_addr, 3)
+        write_addr = add(write_addr, 4)
+        vstb(output_img, row1, write_addr)
+
+        temp = add(write_addr, offset)
+        vstb(output_img, row2, temp)
+
+        temp = add(temp, offset)
+        vstb(output_img, row3, temp)
+
+        temp = add(temp, offset)
+        vstb(output_img, row4, temp)
+        # -------------------------------------------------------
+        row1 = vbih3(chunk11, chunk12)
+        row4 = vbih3(chunk21, chunk22)
+        row2 = vbiv(row1, row4)
+        row3 = vbiv(row4, row1)
+
+        write_addr = add(write_addr, 4)
+        vstb(output_img, row1, write_addr)
+
+        temp = add(write_addr, offset)
+        vstb(output_img, row2, temp)
+
+        temp = add(temp, offset)
+        vstb(output_img, row3, temp)
+
+        temp = add(temp, offset)
+        vstb(output_img, row4, temp)
+        # -------------------------------------------------------
+        column = add(column, 4)
+        read_addr = add(read_addr, 4)
+        write_addr = add(write_addr, 4)
 
         if column >= div_width:  #
             read_addr = sub(read_addr, column)
@@ -108,10 +148,11 @@ def bilinear(img, output_img):
             write_addr = sub(write_addr, 2)
             row = add(row, 1)
             column = add(0, 0)
+    return output_img[0:size]
 
 
 def main():
-    mode = 1
+    mode = 0
     if mode == 1:
         output_img = [0] * div_width * div_height * 4
         nearest_neighbours(input_image.flatten(), output_img)
@@ -119,7 +160,7 @@ def main():
         output_image.shape = (2 * div_height, 2 * div_width)
     else:
         output_img = [0] * (3 * div_width - 2) * (3 * div_height - 2)
-        bilinear(input_image.flatten(), output_img)
+        output_img = bilinear(input_image.flatten(), output_img)
         output_image = numpy.array(output_img, dtype=numpy.uint8)
         output_image.shape = (3 * div_height - 2, 3 * div_width - 2)
     cv2.imshow("Other", output_image)
