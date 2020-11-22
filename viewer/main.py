@@ -57,17 +57,16 @@ def decodificando(x, y, interpolacion):
         root.filename = filedialog.askopenfilename(initialdir="/home", title="Seleccione un archivo para decodificar",
                                                    filetypes=(("txt", "*txt"), ("all files", "*.*")))
 
-        x = x // 4
-        y = y // 4
         if interpolacion == methods_list[1]:  # Nearest neighbor
+            x = x // 4
+            y = y // 4
             x = 2 * x
             y = 2 * y
         elif interpolacion == methods_list[2]:  # Bilineal
+            x = x // 4
+            y = y // 4
             x = (x * 3) - 2
             y = (y * 3) - 2
-        else:
-            x = x * 4
-            y = y * 4
         intern_list = x * y
 
         print(x)
@@ -80,7 +79,7 @@ def decodificando(x, y, interpolacion):
             rows = y
             # Reading file:
             image = []
-            
+
             for i in range(x*y):
                 pixel = file.readline()
                 try:
@@ -88,7 +87,7 @@ def decodificando(x, y, interpolacion):
                 except:
                     print('TODO')
             matriz = np.array(image).astype(np.uint8).reshape((x, y))
-            
+
             cv2.imshow("prueba", matriz)
             cv2.waitKey(0)
             cv2.destroyWindow("prueba")
