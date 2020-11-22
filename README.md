@@ -49,7 +49,7 @@ sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/write_enable \
 sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/address \
 sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/data_input \
 sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/data_output
-
+run 350us
 7. Correr la simulación
 
-run 340us
+run 350us

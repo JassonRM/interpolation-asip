@@ -25,10 +25,10 @@ mide_cpu DUT(clk, gpu_clk, reset, start_button, image_select, interpolation_type
 		
 		
 		#100000 start_button = 1;		
-		#2000000 image_select = 1; // Check time for this
+		#160us image_select = 1; // Check time for this
 		
 		//synthesis translate_off
-		f = $fopen("D:/interpolation-asip/outputs/output.txt");
+		f = $fopen("A:/interpolation-asip/outputs/output.txt");
 		//synthesis translate_on
 		#400;
 		for (i = 0; i < 90000; i = i + 1)begin
