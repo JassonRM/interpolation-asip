@@ -19,7 +19,7 @@ ADDI VP, R0, 1028 ; VRAM pointer
 %MAIN
 ADDI R1, R0, 400 ; IMG HEIGHT
 ADDI R2, R0, 400 ; IMG WIDTH
-ADDI R3, R0, 5 ; QUADRANT
+ADDI R3, R0, 0 ; QUADRANT
 
 
 ADDI R9, R0, 2
@@ -113,10 +113,10 @@ VSTB V5, R6
 ADD R10, R6, R3
 VSTB V7, R10 
 
-ADD R10, R6, R3
+ADD R10, R10, R3
 VSTB V8, R10
 
-ADD R10, R6, R3
+ADD R10, R10, R3
 VSTB V6, R10
 ;-------------------------------------------------------------
 
@@ -131,15 +131,15 @@ VSTB V5, R6
 ADD R10, R6, R3
 VSTB V7, R10 
 
-ADD R10, R6, R3
+ADD R10, R10, R3
 VSTB V8, R10
 
-ADD R10, R6, R3
+ADD R10, R10, R3
 VSTB V6, R10
 ;-------------------------------------------------------------
 
-VBIH3 V5, V1 ;ROW1
-VBIH3 V6, V3 ;ROW4
+VBIH3 V5, V1, V2 ;ROW1
+VBIH3 V6, V3, V4 ;ROW4
 VBIV V7, V5, V6 ;ROW2
 VBIV V8, V6, V5 ;ROW3
 
@@ -149,10 +149,10 @@ VSTB V5, R6
 ADD R10, R6, R3
 VSTB V7, R10 
 
-ADD R10, R6, R3
+ADD R10, R10, R3
 VSTB V8, R10
 
-ADD R10, R6, R3
+ADD R10, R10, R3
 VSTB V6, R10
 ;-------------------------------------------------------------
 
