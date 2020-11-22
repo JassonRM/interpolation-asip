@@ -25,6 +25,9 @@ vldh:11011:N:V
 vstw:11100:N:V
 vstb:11101:N:V
 vadd:11000:N:V
-vnni:11000:100:V
-vbiv:11000:101:V
-vbih:11000:110:V
+vnni1:11000:001:V
+vnni2:11000:010:V
+vbiv:11000:100:V
+vbih1:11000:101:V
+vbih2:11000:110:V
+vbih3:11000:111:V

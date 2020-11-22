@@ -5,11 +5,7 @@ module vectorALU_unit(input logic VCSub,
 							
 
 logic neg;
-logic [31:0] mul, add, sub, shift, bilinear;
-assign mul = inputA[15:0] * inputB[15:0];
-assign add = inputA + inputB;
-assign sub = inputA - inputB; 
-assign shift = inputA >> inputB;
+logic [31:0] bilinear;
 assign bilinear = (inputA * 2 + inputB) / 3;
 assign neg = sub[31];
 
@@ -18,11 +14,7 @@ always_comb
 	else
 		case (ALUop)
 			3'b000: out <= inputA;
-			3'b011: out <= add;
-			3'b010: out <= mul;
-			3'b001: out <= sub;
-			3'b111: out <= shift;
-			3'b101: out <= bilinear;
+			3'b100: out <= bilinear;
 			default: out <= 32'b0;
 		endcase
 endmodule

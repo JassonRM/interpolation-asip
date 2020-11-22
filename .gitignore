@@ -14,3 +14,5 @@ quartus_project/simulation/modelsim/
 quartus_project/output_files/
 
 quartus_project/incremental_db/
+
+quartus_project/mide_cpu_nativelink_simulation.rpt
