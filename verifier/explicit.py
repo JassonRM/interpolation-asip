@@ -37,16 +37,24 @@ def nearest_neighbours(img, output_img):
 
     while div_height > row:
         chunk = vldb(img, read_addr)
-        ext = vmni(chunk)
+        ext = vmni1(chunk)
+        ext2 = vmni2(chunk)
 
-        vstw(output_img, ext, write_addr)
+        vstb(output_img, ext, write_addr)
+
+        temp = add(write_addr, 4)
+        vstb(output_img, ext2, temp)
+
         temp = add(write_addr, div_width)
         temp = add(temp, div_width)
-        vstw(output_img, ext, temp)
+        vstb(output_img, ext, temp)
 
-        column = add(column, 2)
-        read_addr = add(read_addr, 2)
-        write_addr = add(write_addr, 4)
+        temp = add(temp, 4)
+        vstb(output_img, ext2, temp)
+
+        column = add(column, 4)
+        read_addr = add(read_addr, 4)
+        write_addr = add(write_addr, 8)
 
         if column >= div_width:  #
             read_addr = sub(read_addr, column)
@@ -77,16 +85,16 @@ def bilinear(img, output_img):
         row2 = vbi(row1, row4)
         row3 = vbi(row4, row1)
 
-        vstw(output_img, row1, write_addr)
+        vstb(output_img, row1, write_addr)
 
         temp = add(write_addr, offset)
-        vstw(output_img, row2, temp)
+        vstb(output_img, row2, temp)
 
         temp = add(temp, offset)
-        vstw(output_img, row3, temp)
+        vstb(output_img, row3, temp)
 
         temp = add(temp, offset)
-        vstw(output_img, row4, temp)
+        vstb(output_img, row4, temp)
 
         column = add(column, 1)
         read_addr = add(read_addr, 1)
@@ -103,7 +111,7 @@ def bilinear(img, output_img):
 
 
 def main():
-    mode = 0
+    mode = 1
     if mode == 1:
         output_img = [0] * div_width * div_height * 4
         nearest_neighbours(input_image.flatten(), output_img)

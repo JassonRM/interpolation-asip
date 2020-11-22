@@ -18,14 +18,18 @@ def mult(r1, r2):
 
 
 def vldb(img, vr1):
-    return img[vr1:vr1 + 2]  # READ 2 bytes
+    return img[vr1:vr1 + 4]  # READ 2 bytes
 
 
-def vmni(vr1):
+def vmni1(vr1):
     return [vr1[0], vr1[0], vr1[1], vr1[1]]  # Bit extension
 
 
-def vstw(output_img, vr1, vr2):  # Must be able to store misaligned vectors
+def vmni2(vr1):
+    return [vr1[2], vr1[2], vr1[3], vr1[3]]  # Bit extension
+
+
+def vstb(output_img, vr1, vr2):  # Must be able to store misaligned vectors
     output_img[vr2:vr2 + 4] = vr1
 
 
