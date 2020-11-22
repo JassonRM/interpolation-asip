@@ -15,7 +15,7 @@ module memory (input logic clk, gpu_clk, reset, button_start, image_select, writ
 	//								data_address, instr_address, data_input, vector_input, data_output, 
 	//								instr_output, vector_output, hsync, vsync, rgb_out);
 	
-	iomemory mem(clk, write_enable, gpu_clk, button_start, data_address, instr_address, data_input, gpu_address, vector_input, encrypted_gpu, decrypted_gpu, data_output, instr_output, vector_output);
+	iomemory mem(clk, write_enable, gpu_clk, button_start, interpolation_type, quadrant, data_address, instr_address, data_input, gpu_address, vector_input, encrypted_gpu, decrypted_gpu, data_output, instr_output, vector_output);
 
 	always_comb
 		case(select_alu)
