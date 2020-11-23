@@ -10,13 +10,11 @@ Modelsim 2020.1 - simulacion procesador
 
 Intellij Idea - programacion java
 
-Python 3.6 - Guia de desencripcion de imagen
-
-VGA Simulator from https://ericeastwood.com/lab/vga-simulator/
+Python 3.6 - Guia de interpolación de imagen y visualización
 
 Para la ejecución del proyecto se deben seguir los siguientes pasos:
 1. Desde Quartus seleccionar la opción de abrir un proyecto
-2. Seleccionar el archivo rsa-asip.qpf
+2. Seleccionar el archivo interpolation-asip.qpf
 3. Modificar las direcciones de los archivos vram.v, rom_encrypted.v, mide_cpu_test.sv
 (Se debe reemplazar la parte C:/ del path por la dirección del proyecto)
 4. Seleccionar el archivo mide_cpu_test.sv como top level del proyecto
@@ -48,6 +46,6 @@ sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/write_enable \
 sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/address \
 sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/data_input \
 sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/data_output
-7. Correr la simulación
 
+7. Correr la simulación
 run 550us
