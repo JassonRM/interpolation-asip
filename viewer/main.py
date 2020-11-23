@@ -65,8 +65,8 @@ def decodificando(x, y, interpolacion):
         elif interpolacion == methods_list[2]:  # Bilineal
             x = x // 4
             y = y // 4
-            x = (x * 3) - 2
-            y = (y * 3) - 2
+            x = (x * 3)
+            y = (y * 3)
         intern_list = x * y
 
         print(x)

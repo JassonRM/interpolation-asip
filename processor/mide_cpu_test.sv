@@ -15,8 +15,8 @@ mide_cpu DUT(clk, clk, reset, start_button, image_select, interpolation_type, qu
 		reset = 0;
 		start_button = 0;
 		image_select = 0;
-		interpolation_type = 0;
-		quadrant = 0;
+		interpolation_type = 1;
+		quadrant = 2;
 		gpu_address = 0;
 		
 		#1000 reset = 1;
@@ -29,7 +29,7 @@ mide_cpu DUT(clk, clk, reset, start_button, image_select, interpolation_type, qu
 		image_select = 0;
 		
 		//synthesis translate_off
-		f = $fopen("A:/interpolation-asip/outputs/original.txt");
+		f = $fopen("/media/data/Projects/interpolation-asip/outputs/original.txt");
 		//synthesis translate_on
 		for (i = 0; i < 160000; i = i + 1)
 			begin
@@ -39,11 +39,10 @@ mide_cpu DUT(clk, clk, reset, start_button, image_select, interpolation_type, qu
 			end
 	
 	
-		// Write nearest neighbor image
 		#150ns image_select = 1;
 		
 		//synthesis translate_off
-		f = $fopen("A:/interpolation-asip/outputs/nearest_neighbor.txt");
+		f = $fopen("/media/data/Projects/interpolation-asip/outputs/zoomed.txt");
 		//synthesis translate_on
 		for (i = 0; i < 90000; i = i + 1)
 			begin
@@ -52,21 +51,6 @@ mide_cpu DUT(clk, clk, reset, start_button, image_select, interpolation_type, qu
 					$fdisplay(f,"%b", vram_out);
 			end
 			
-		// Write bilinear image
-		interpolation_type = 1;
-		start_button = 1;
-		#10ns start_button = 0; 
-		
-		#150ns
-		//synthesis translate_off
-		f = $fopen("A:/interpolation-asip/outputs/bilinear.txt");
-		//synthesis translate_on
-		for (i = 0; i < 90000; i = i + 1)
-			begin
-				gpu_address <= i;
-				@(posedge clk) 
-					$fdisplay(f,"%b", vram_out);
-			end
 	end
 	
 	always

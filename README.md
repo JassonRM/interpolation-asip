@@ -27,7 +27,6 @@ vsim -L altera_mf_ver -L lpm_ver  work.mide_cpu_test
 add wave -position insertpoint  \
 sim:/mide_cpu_test/clk \
 sim:/mide_cpu_test/gpu_address \
-sim:/mide_cpu_test/gpu_clk \
 sim:/mide_cpu_test/image_select \
 sim:/mide_cpu_test/reset \
 sim:/mide_cpu_test/start_button \
@@ -49,7 +48,6 @@ sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/write_enable \
 sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/address \
 sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/data_input \
 sim:/mide_cpu_test/DUT/MEM/mem/AddrDecoder/data_output
-run 350us
 7. Correr la simulación
 
-run 350us
+run 550us
